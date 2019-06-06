@@ -1,0 +1,101 @@
+<div class="pd20">
+    <!-- <div class="into">
+        <h2>Don't wait until it's too late! Take advantage now of today's discounts</h2>
+    </div> -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card my-4 result-filter-wrapper">
+                <h3 class="card-header"><span class="icon"><i class="fa fa-sliders-h"></i></span> Filter</h3>
+                <div class="card-body">
+                    <div class="form-group fg-line">
+                        <label class="lbl" for="hname">Hotel name</label>
+                        <input type="text" class="form-control" id="hname" placeholder="Hotel name" name="sname"
+                            [(ngModel)]="hotelSearch">
+                    </div>
+                    <div class="form-group fg-line">
+                        <label class="lbl" for="range">Price Range</label>
+                        <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ng5-slider>
+                    </div>
+                    <div class="form-group fg-line">
+                        <label class="lbl" for="range">Rating</label>
+                        <ng5-slider [(value)]="rate" [options]="rateOptions"></ng5-slider>
+                    </div>
+                    <div class="form-group fg-line">
+                        <button class="btn btn-default" (click)="SearchNames()">Search</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <div class="into" *ngIf="hotels.length==0">
+                <h2>No results found ! Don't wait until it's too late!</h2>
+            </div>
+            <ul class="hotels">
+                <li class="list-hotels" *ngFor="let hotel of hotels">
+                    <div class="ctor">
+                        <div class="media">
+                            <span class="media-left">
+                                <img src="{{hotel.extra.images[0].url}}" class="mgd">
+                            </span>
+                            <div class="media-body">
+                                <h3 class="media-heading"><a [routerLink]="['/profile', hotel._id]">{{hotel.name}}</a></h3>
+                                <p class="rating">
+                                    <span class="istar" *ngFor="let rt of counter(hotel.rate)"><i
+                                            class="fa fa-star"></i></span>
+                                </p>
+                                <span class="location"><i class="fa fa-map-marker"></i>{{hotel.address}}</span>
+                                <p class="desc">{{hotel.short_describtion}}</p>
+                                <div class="facilities">
+                                    <span *ngFor="let fac of hotel.extra.features">{{fac.name}}</span>
+                                </div>
+                                <span class="price">{{hotel.price_night}}$/night</span>
+                                <button class="booking btn btn-default" data-toggle="modal" data-target=".bs-confirmPH" (click)="currResv=hotel"> booking</button>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
+            </ul>
+            <ul *ngIf="hotels.length>0" class="pagination justify-content-center mb-4">
+                <li class="page-item">
+                    <a class="page-link" (click)="SearchNames(-1)" *ngIf="page>0">← Older</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" (click)="SearchNames(1)">Newer →</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+     <div class="modal fade bs-confirmPH" tabIndex="-1" role="dialog" aria-labelledby="confirmPH">
+        <form class="form-horizontal" id="confirmPH" #confirmPH="ngForm" (ngSubmit)="confirmPHF()">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="confirmPH">Booking</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label for="email" class="">Email</label>
+                            <input type="email" required id="email" name="email" [(ngModel)]="reserve.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <label for="text">Phone</label>
+                            <input type="text" class="form-control" name="Phone" id="Phone"
+                                [(ngModel)]='reserve.phone' required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="confirmPH.invalid"
+                                class="btn btn-primary">
+                                Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

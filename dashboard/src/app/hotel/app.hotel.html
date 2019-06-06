@@ -1,0 +1,267 @@
+<div class="row">
+    <div class="col-6 col-md-4">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="para_glob.name" (input)="filterHotels()" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4"
+                placeholder="Search Hoteles">
+            <div class="lis-search">
+                <i class="fa fa-search lis-primary"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 col-md-3">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="para_glob.country" (input)="filterHotels()" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4"
+                placeholder="Search by Country">
+            <div class="lis-search">
+                <i class="fa fa-search lis-primary"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 col-md-3">
+        <div class="form-group">
+            <input type="text" [(ngModel)]="para_glob.city" (input)="filterHotels()" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4"
+                placeholder="Search by City">
+            <div class="lis-search">
+                <i class="fa fa-search lis-primary"></i>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 col-md-2">
+        <div class="form-group">
+            <input type="number" min="0" [(ngModel)]="para_glob.price_night" (input)="filterHotels()" class="form-control border-top-0 border-left-0 border-right-0 rounded-0 pl-4"
+                placeholder="price/night">
+            <div class="lis-search">
+                <i class="fa fa-search lis-primary"></i>
+            </div>
+        </div>
+    </div>
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>$</th>
+            <th>Available</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <!-- <th>Date</th> -->
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="f_hotels.length==0">
+            <td colspan="10">No hotels found, please try add some !!</td>
+        </tr>
+        <tr *ngFor="let hotel of f_hotels | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
+            <td>{{ i+1 }}</td>
+            <td>
+                <a [routerLink]="['/hotel',hotel._id]" class="nav-link">{{hotel.name}}</a>
+            </td>
+            <td>{{hotel.country}}</td>
+            <td>{{hotel.city}}</td>
+            <td>{{hotel.phone}}</td>
+            <td>{{hotel.price_night}}</td>
+            <td>{{(hotel.available) ? 'Yes' : 'No'}}</td>
+            <td>{{hotel.check_in |date:'dd/MM/yyyy'}}</td>
+            <td>{{hotel.check_out |date:'dd/MM/yyyy'}}</td>
+            <!-- <td>{{hotel.created_at | date:'dd/MM/yyyy'}}</td> -->
+            <td>
+                <div class="btn-group">
+                    <button class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-hotel" (click)="confirmSelection(hotel)">
+                        <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm"
+                        (click)="confirmSelection(hotel)">
+                        <span class="fa fa-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+<div class="modal fade bs-add-hotel" tabIndex="-1" role="dialog" aria-labelledby="bsAddhotel">
+    <form class="form-horizontal" id="addHotelForm" #addHotelForm="ngForm" (ngSubmit)="addhotel(hotel)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtModal">Add Hotel</h4>
+                    <button type="button" id="addModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputname" class="">Name</label>
+                            <input type="text" required id="ename" name="ename" [(ngModel)]="hotel.name" required class="form-control"
+                                placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="radults">Price/Night</label>
+                            <input type="number" min="1" class="form-control" name="price_night" id="price_night"
+                                placeholder="1" [(ngModel)]='hotel.price_night' required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputdescription" class="">Country</label>
+                            <input type="text" required class="form-control" placeholder="Country" name="ecountry"
+                                required [(ngModel)]="hotel.country">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputrate" class="">City</label>
+                            <input type="text" required class="form-control" placeholder="City" name="ecity" required
+                                [(ngModel)]="hotel.city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputdescription">Address</label>
+                        <input type="text" required class="form-control" placeholder="Address" name="eaddress" required
+                            [(ngModel)]="hotel.address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="eEmail" class="">Email</label>
+                            <input type="text" required class="form-control" placeholder="Email" name="eEmail" required
+                                [(ngModel)]="hotel.email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="ePhone" class="">Phone</label>
+                            <input type="text" required class="form-control" placeholder="Phone" name="ePhone" required
+                                [(ngModel)]="hotel.phone">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="eCheck_in" class="">Check-in</label>
+                            <input type="date" required class="form-control" placeholder="Check_in" name="echeck_in"
+                                required [(ngModel)]="hotel.check_in">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="eCheck_out" class="">Check-out</label>
+                            <input type="date" required class="form-control" placeholder="Check_out" name="echeck_out"
+                                required [(ngModel)]="hotel.check_out">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="bs-margin btn btn-info">
+                            <span class="fa fa-check" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="bs-margin btn btn-danger" id="cancleAddition" data-dismiss="modal">
+                            <span class="fa fa-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade bs-edit-hotel" tabIndex="-1" role="dialog" aria-labelledby="bsEditable">
+    <form class="form-horizontal" (ngSubmit)="updatehotel(curr_hotel)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtModal">Update</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputname" class="">Name</label>
+                            <input type="text" required id="ename" name="name" [(ngModel)]="curr_hotel.name" required
+                                class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="radults">Price/Night</label>
+                            <input type="number" min="1" class="form-control" name="price_night" id="price_night"
+                                placeholder="1" [(ngModel)]='curr_hotel.price_night' required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputdescription" class="">Country</label>
+                            <input type="text" required class="form-control" placeholder="Country" name="country"
+                                required [(ngModel)]="curr_hotel.country">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputrate" class="">City</label>
+                            <input type="text" required class="form-control" placeholder="City" name="city" required
+                                [(ngModel)]="curr_hotel.city">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputdescription">Address</label>
+                        <input type="text" required class="form-control" placeholder="Address" name="address" required
+                            [(ngModel)]="curr_hotel.address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Email" class="">Email</label>
+                            <input type="text" required class="form-control" placeholder="Email" name="Email" required
+                                [(ngModel)]="curr_hotel.email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Phone" class="">Phone</label>
+                            <input type="text" required class="form-control" placeholder="Phone" name="Phone" required
+                                [(ngModel)]="curr_hotel.phone">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="Check_in" class="">Check-in</label>
+                            <input type="date" required class="form-control" placeholder="Check_in" name="check_in"
+                                required [(ngModel)]="curr_hotel.check_in">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Check_out" class="">Check-out</label>
+                            <input type="date" required class="form-control" placeholder="Check_out" name="check_out"
+                                required [(ngModel)]="curr_hotel.check_out">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="bs-margin btn btn-info" type="submit" class="btn btn-primary">
+                            <span class="fa fa-check" aria-hidden="true"></span>
+                        </button>
+                        <button type="button" class="bs-margin btn btn-danger" id="cancleEditable" data-dismiss="modal">
+                            <span class="fa fa-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="modal fade bs-example-modal-sm" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h4 class="modal-title" id="myModalLabel">Warning</h4>
+            </div>
+            <div class="modal-body">
+                Sure, you want to delete this item ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="cancleModal" data-dismiss="modal">
+                    <span class="fa fa-remove" aria-hidden="true"></span>
+                </button>
+                <button type="button" class="btn btn-danger" (click)="deletehotel()">
+                    <span class="fa fa-check" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="m_scroll_top" class="m-scroll-top" data-toggle="modal" data-target=".bs-add-hotel">
+    <i class="fa fa-plus"></i>
+</div>

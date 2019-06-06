@@ -1,0 +1,66 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Check-In</th>
+            <th scope="col">Check-Out</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="all_checks.length===0">
+            <td colspan="8"> No available Checks , try add some and get back !</td>
+        </tr>
+        <tr *ngFor="let check of all_checks | slice:0:80 as total; index as i;">
+            <td>{{i+1}}</td>
+            <td>{{check.check_in  }}</td>
+            <td>{{check.check_out }}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="submit" class="bs-margin btn btn-info" data-toggle="modal"
+                        data-target=".bs-edit-check" (click)="curr_check=check">
+                        <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-danger" (click)="deleteCheck(check)">
+                        <span class="fa fa-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="modal fade bs-add-check" tabIndex="-1" role="dialog" aria-labelledby="bsAddcheck">
+    <form id="addChecksform" #addCheckForm="ngForm" (ngSubmit)="AddChecks(check_obj)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Check</h4>
+                    <button type="button" id="editInfoModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputCheckIn">Check-in</label>
+                            <input name="inputCheckIn" type="date" class="form-control" id="inputCheckIn"
+                                placeholder="Name" [(ngModel)]="check_obj.check_in" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCheckOut">Check-out</label>
+                            <input name="inputCheckOut" type="date"  class="form-control" id="inputCheckOut"
+                                placeholder="Rate" [(ngModel)]="check_obj.check_out" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="addCheckForm.invalid">Submit </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="i_scroll_top" class="m-scroll-top" data-toggle="modal" data-target=".bs-add-check">
+    <i class="fa fa-plus"></i>
+</div>

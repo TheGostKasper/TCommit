@@ -1,0 +1,131 @@
+<div class="main-wrapper">
+
+    <div class="app-container">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-trans">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle btn btn-default" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            English
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <button (click)="switchLanguage('en')">en</button>
+                            <button (click)="switchLanguage('fr')">fr</button>
+                            <a class="dropdown-item" href="#" (click)="switchLanguage('en')">EN</a>
+                            <a class="dropdown-item" href="#" (click)="switchLanguage('fr')">FR</a>
+                        </div>
+                    </li>
+                </ul>
+                <div>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item mr40">
+                            <span class="pointer"> {{ 'Title' | translate:param }}</span>
+                        </li>
+                        <li></li>
+                        <li class="nav-item" *ngIf="!token">
+                            <span class="pointer pd10" data-toggle="modal" data-target=".bs-signin">Sign in</span> |
+                            <span class="pointer pd10" data-toggle="modal" data-target=".bs-signup">Register</span>
+                        </li>
+                        <li class="nav-item" *ngIf="token">
+                            <span class="pointer pd10">Hello {{curr_user.name}}</span> |
+                            <span class="pointer pd10" (click)="SignOut()">Logout</span>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        <router-outlet></router-outlet>
+    </div>
+    <div class="footer">
+        <div class="left">
+            <ul class="exul">
+                <li>Home</li>
+                <li>About</li>
+                <li>Testimonials</li>
+                <li>Privacy Plicy</li>
+                <li>Terms & Conditions</li>
+                <li>Contact Us</li>
+            </ul>
+        </div>
+        <div class="right p50">
+            <img src="./../../assets/images/summitLS.png" alt="" class="">
+            <p class="white">©SummitLS 2018,All rights reserved</p>
+        </div>
+    </div>
+
+
+    <div class="modal fade bs-signin" tabIndex="-1" role="dialog" aria-labelledby="bsAddhotel">
+        <form class="form-horizontal" id="signInForm" #signInForm="ngForm" (ngSubmit)="signIn(user)">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signinModal">Sign-in</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label for="email" class="">Email</label>
+                            <input type="email" required id="email" name="email" [(ngModel)]="user.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <label for="password">Password</label>
+                            <input type="password" minlength="6" class="form-control" name="password" id="password"
+                                [(ngModel)]='user.password' required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="signInForm.invalid"
+                                class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade bs-signup" tabIndex="-1" role="dialog" aria-labelledby="bssignup">
+        <form class="form-horizontal" id="signUpForm" #signUpForm="ngForm" (ngSubmit)="signUp(user)">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signinModal">Sign-up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label for="name" class="">Name</label>
+                            <input type="text" required id="name" name="name" [(ngModel)]="user.name" required
+                                class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-row">
+                            <label for="phone" class="">Phone</label>
+                            <input type="text" required id="phone" name="phone" [(ngModel)]="user.phone" required
+                                class="form-control" placeholder="phone">
+                        </div>
+                        <div class="form-row">
+                            <label for="email" class="">Email</label>
+                            <input type="email" required id="eemail" name="email" [(ngModel)]="user.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <label for="password">Password</label>
+                            <input type="password" minlength="6" class="form-control" name="password" id="epassword"
+                                [(ngModel)]='user.password' required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="signUpForm.invalid"
+                                class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

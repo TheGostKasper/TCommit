@@ -1,0 +1,147 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Key</th>
+            <th scope="col">Value</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="all_informations.length===0">
+            <td colspan="8"> No available informations , try add some and get back !</td>
+        </tr>
+        <tr *ngFor="let information of all_informations | slice:0:80 as total; index as i;">
+            <td>{{i+1}}</td>
+            <td>{{information.key}}</td>
+            <td><span class="opt" *ngFor="let vlus of information.value">{{vlus.name}} </span> </td>
+            <td>
+                <div class="btn-group">
+                    <button type="submit" class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-information"
+                        (click)="curr_information=information">
+                        <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-danger" (click)="deleteInformation(information)">
+                        <span class="fa fa-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="modal fade bs-add-information" tabIndex="-1" role="dialog" aria-labelledby="bsAddinformation"> -->
+    <form class="form-horizontal" id="addinformationform" #addinformationform="ngForm" (ngSubmit)="addInformation(information_obj)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtInfModal">Add Information</h4>
+                    <button type="button" id="addInfoModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="in">Key</label>
+                        <input type="text" class="form-control" name="in" id="in" placeholder="information Key"
+                            [(ngModel)]='information_obj.key' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="iv">Value</label>
+                        <tag-input [(ngModel)]='information_obj.value' name="optional" id="value" [identifyBy]="'name'"
+                            [displayBy]="'name'"></tag-input>
+                    </div>
+                    <div class="form-group center">
+                        <button type="submit" class="btn btn-primary form-control" [disabled]="addinformationform.invalid">Add
+                            Information
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="i_scroll_top" class="m-scroll-top" data-toggle="modal" data-target=".bs-add-information">
+    <i class="fa fa-plus"></i>
+</div>
+
+<div class="modal fade bs-edit-information" tabIndex="-1" role="dialog" aria-labelledby="bsAEditinformation">
+    <form class="form-horizontal" id="informationsform" #informationsForm="ngForm" (ngSubmit)="updateInformation(curr_information)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit information</h4>
+                    <button type="button" id="editInfoModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="ein">Key</label>
+                        <input type="text" class="form-control" name="ein" id="ein" placeholder="information Key"
+                            [(ngModel)]='curr_information.key' required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eiv">Value</label>
+                        <tag-input [(ngModel)]='curr_information.value' name="eoptional" id="evalue" [identifyBy]="'name'"
+                            [displayBy]="'name'"></tag-input>
+                    </div>
+                    <div class="form-group center">
+                        <button type="submit" class="btn btn-primary form-control" [disabled]="informationsForm.invalid">Submit
+                            Changes </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- <div class="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">{{curr_information.name}}</h4>
+                <button type="button" id="glrModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addImagefform" #addImageForm="ngForm" (ngSubmit)="uploadinformationImage(file_obj)">
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile" (change)="readFile($event.target.files)">
+                                <label class="custom-file-label" for="inputGroupFile">{{file_obj.name}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-indo" id="RT2" [disabled]="file_obj.id===''">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group ctn">
+                            <img src="{{file_obj.image}}" alt="{{file_obj.id}}" srcset="" width="150" height="150">
+                        </div>
+                    </div>
+
+                </form>
+                <hr class="hr" />
+                <section class="gallery-block compact-gallery">
+                    <div class="container">
+                        <div class="row no-gutters">
+                            <div class="col-md-6 col-lg-4 item zoom-on-hover" *ngFor="let image of curr_information.extra.images">
+                                <a class="lightbox">
+                                    <img class="img-fluid image" src="{{image.url}}">
+                                    <span class="description">
+                                        <i class="fa fa-remove btl pointer" (click)="deleteinformationImage(image)"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>  -->

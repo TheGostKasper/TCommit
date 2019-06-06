@@ -1,0 +1,218 @@
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Adults</th>
+            <th scope="col">Children</th>
+            <th scope="col">Beds</th>
+            <th scope="col">Price/Night</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="all_rooms.length===0">
+            <td colspan="8"> No available rooms , try add some and get back !</td>
+        </tr>
+        <tr *ngFor="let room of all_rooms | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
+            <td>{{i+1}}</td>
+            <td>{{room.name}}</td>
+            <td>{{room.adults}}</td>
+            <td>{{room.children}}</td>
+            <td>{{room.bed_no}}</td>
+            <td>{{room.price_night}}</td>
+            <td>
+                <div class="btn-group">
+                    <button type="submit" class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-room"
+                        (click)="curr_room=room">
+                        <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-default" data-toggle="modal" data-target=".bs-example-modal-lg"
+                        (click)="curr_room=room">
+                        <span class="fa fa-image" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-danger" (click)="deleteRoom(room)">
+                        <span class="fa fa-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+
+<div class="modal fade bs-add-room" tabIndex="-1" role="dialog" aria-labelledby="bsAddRoom">
+    <form class="form-horizontal" id="addRoomform" #addRoomform="ngForm" (ngSubmit)="addRoom(room_obj)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtModal">Add Room</h4>
+                    <button type="button" id="addModal" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="fname">Name</label>
+                            <input type="text" class="form-control" name="rname" id="rname" placeholder="Room name"
+                                [(ngModel)]='room_obj.name' required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="rbed_no">Beds</label>
+                            <input type="number" min="1" class="form-control" name="rbed_no" id="rbed_no"
+                                placeholder="1" [(ngModel)]='room_obj.bed_no' required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="radults">Price/Night</label>
+                            <input type="number" min="1" class="form-control" name="price_night" id="price_night"
+                                placeholder="1" [(ngModel)]='room_obj.price_night' required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="radults">Adults</label>
+                            <input type="number" min="1" class="form-control" name="radults" id="radults" placeholder="1"
+                                [(ngModel)]='room_obj.adults' required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="radults">Children</label>
+                            <input type="number" min="1" class="form-control" name="children" id="children" placeholder="1"
+                                [(ngModel)]='room_obj.children' required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="rdes">Describtion</label>
+                        <textarea type="text" min="1" class="form-control" name="rdes" id="rdes" placeholder="Your describtion here!"
+                            [(ngModel)]='room_obj.describtion' required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="room">Facilities</label>
+                        <tag-input [(ngModel)]='room_obj.extra.facilities' name="room" id="room" [identifyBy]="'name'"
+                            [displayBy]="'name'"></tag-input>
+                    </div>
+                    <div class="form-group center">
+                        <button type="submit" class="btn btn-primary form-control" [disabled]="addRoomform.invalid">Add
+                            Room
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="m_scroll_top" class="m-scroll-top" data-toggle="modal" data-target=".bs-add-room">
+    <i class="fa fa-plus"></i>
+</div>
+
+<div class="modal fade bs-edit-room" tabIndex="-1" role="dialog" aria-labelledby="bsAEditRoom">
+    <form class="form-horizontal" id="roomsform" #roomsForm="ngForm" (ngSubmit)="updateRoom(curr_room)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Edit Room</h4>
+                    <button type="button" id="editModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="fname">Name</label>
+                            <input type="text" class="form-control" name="rname" id="ername" placeholder="Room name"
+                                [(ngModel)]='curr_room.name' required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="rbed_no">Beds</label>
+                            <input type="number" min="1" class="form-control" name="ebed_no" id="bed_no"
+                                placeholder="1" [(ngModel)]='curr_room.bed_no' required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="eradults">Price/Night</label>
+                            <input type="number" min="1" class="form-control" name="price_night" id="eprice_night"
+                                placeholder="1" [(ngModel)]='curr_room.price_night' required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="eradults">Adults</label>
+                            <input type="number" min="1" class="form-control" name="radults" id="eradults" placeholder="1"
+                                [(ngModel)]='curr_room.adults' required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="eradults">Children</label>
+                            <input type="number" min="1" class="form-control" name="children" id="echildren"
+                                placeholder="1" [(ngModel)]='curr_room.children' required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="erdes">Describtion</label>
+                        <textarea type="text" min="1" class="form-control" name="rdes" id="erdes" placeholder="Your describtion here!"
+                            [(ngModel)]='curr_room.describtion' required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eroom">Facilities</label>
+                        <tag-input [(ngModel)]='curr_room.extra.facilities' name="room" id="eroom" [identifyBy]="'name'"
+                            [displayBy]="'name'"></tag-input>
+                    </div>
+                    <div class="form-group center">
+                        <button type="submit" class="btn btn-primary form-control" [disabled]="roomsForm.invalid">Submit
+                            Changes </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade bs-example-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">{{curr_room.name}}</h4>
+                <button type="button" id="glrModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <form id="addImagefform" #addImageForm="ngForm" (ngSubmit)="uploadRoomImage(file_obj)">
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile" (change)="readFile($event.target.files)">
+                                <label class="custom-file-label" for="inputGroupFile">{{file_obj.name}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-indo" id="RT2" [disabled]="file_obj.id===''">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group ctn">
+                            <img src="{{file_obj.image}}" alt="{{file_obj.id}}" srcset="" width="150" height="150">
+                        </div>
+                    </div>
+
+                </form>
+                <hr class="hr" />
+                <section class="gallery-block compact-gallery">
+                    <div class="container">
+                        <div class="row no-gutters">
+                            <div class="col-md-6 col-lg-4 item zoom-on-hover" *ngFor="let image of curr_room.extra.images">
+                                <a class="lightbox">
+                                    <img class="img-fluid image" src="{{image.url}}">
+                                    <span class="description">
+                                        <i class="fa fa-remove btl pointer" (click)="deleteRoomImage(image)"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div> 

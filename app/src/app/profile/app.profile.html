@@ -1,0 +1,88 @@
+<div class="pd20">
+    <div class="page-header">
+        <h3>{{hotel.name}}</h3>
+        <p class="rating">
+                <span class="istar" *ngFor="let rt of counter(hotel.rate)"><i
+                    class="fa fa-star"></i></span>
+        </p>
+        <span class="location"><i class="fa fa-map-marker"></i>{{hotel.address}}</span>
+        <span class="price">{{hotel.price_night}}$/night</span>
+        <button class="booking btn btn-default" data-toggle="modal" data-target=".bs-confirmPH"> booking</button>
+
+    </div>
+    <div class="img-container">
+        <div class="slider-container">
+            <div class="row">
+                <div class="col-md-8">
+                    <img src="{{selectedImg.url}}" class="img-center img-selected">
+                </div>
+                <div class="col-md-4">
+                    <img *ngFor="let city of hotel.extra.images" src="{{city.url}}" class="img-slider img-center pointer" (click)="changeImg(city)">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="info-container">
+        <h3 class="info-header">GUARANTEED OFFICIAL HOTEL INFORMATION</h3>
+        <div class="info-body row">
+            <div class="info-list col-md-4 col-sm-6" *ngFor="let info of hotel.extra.information">
+                <p>{{info.key}}</p>
+                <div class="info-options">
+                    <p *ngFor="let subInfo of info.value"><span class="opt-spn" >
+                        <i class="fa fa-check"></i></span><span>{{subInfo.name}}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info-container">
+        <h3 class="info-header">AMENITIES</h3>
+        <div class="info-body">
+            <ul class="facilities-list row">
+                <li class="facility col-md-3" *ngFor="let feature of hotel.extra.features">{{feature.name}}</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-container">
+        <h3 class="info-header">HOTEL INFORMATION</h3>
+        <h4>Hotel description</h4>
+        <p class="description">
+           {{hotel.describtion}}
+        </p>
+    </div>
+</div>
+
+<div class="modal fade bs-confirmPH" tabIndex="-1" role="dialog" aria-labelledby="confirmPH">
+        <form class="form-horizontal" id="confirmPH" #confirmPH="ngForm" (ngSubmit)="confirmPHF()">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="confirmPH">Booking</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <label for="email" class="">Email</label>
+                            <input type="email" required id="email" name="email" [(ngModel)]="reserve.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <label for="text">Phone</label>
+                            <input type="text" class="form-control" name="Phone" id="Phone"
+                                [(ngModel)]='reserve.phone' required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="confirmPH.invalid"
+                                class="btn btn-primary">
+                                Book
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>

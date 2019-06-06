@@ -1,0 +1,139 @@
+<div class="pd20">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">Your booking details</div>
+                <div class="card-body">
+                    <div class="bookingDetail mar0t">
+                        <div class="hotel-header">
+                            <h3>{{reservation.hotel.name}}</h3>
+                            <p class="rating">
+                                <span class="istar" *ngFor="let rt of counter()"><i
+                                    class="fa fa-star"></i></span>
+                        </p>
+                            <span class="location"><i class="fa fa-map-marker"></i>{{reservation.hotel.address}}</span>
+                        </div>
+                        <img src="{{selectedImg.url}}" class="img-center img-selected" />
+                        <div class="hotel-check">
+                            <p><strong>Check-in</strong> {{reservation.check_in }}</p>
+                            <p><strong>Check-out</strong> {{reservation.check_out }}</p>
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">Room(s) details</div>
+                <div class="card-body">
+                    <div class="rmh">
+                        <h4 class="rmh-name">{{reservation.room.name}}</h4>
+                        <p class="rmh-detail">
+                            {{reservation.room.describtion}}
+                        </p>
+                        <div class="hotel-check">
+                            <p><strong>Adults</strong> {{reservation.room.adults}}</p>
+                            <p><strong>Children</strong> {{reservation.room.children}}</p>
+                        </div>
+                        <div class="facilities">
+                            <span *ngFor="let fac of reservation.room.extra.facilities">{{fac.name}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+            <form class="card-info" id="basicInfoform" #authForm="ngForm" (ngSubmit)="confirmReservation(reservation)">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputfname">First Name</label>
+                        <input name="fname" type="text" class="form-control" id="inputfname" placeholder="First Name"
+                            required  [(ngModel)]="reservation.firstName">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputlname">Last Name</label>
+                        <input name="lname" type="text" class="form-control" id="inputlname" placeholder="Last Name"
+                            required [(ngModel)]="reservation.lastName">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputEmail4">Email</label>
+                        <input name="hemail" type="email" class="form-control" id="inputEmail4" placeholder="Email"
+                            required [(ngModel)]="reservation.email">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputPhone">Phone</label>
+                        <input name="hpassword" type="tel" class="form-control" id="inputPhone"
+                            placeholder="Phone Number" required [(ngModel)]="reservation.Phone">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCheck_in">Check-in</label>
+                        <input name="hin" type="date" class="form-control" id="inputCheck_in" required
+                        [(ngModel)]="reservation.check_in">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCheck_out">Check-out</label>
+                        <input name="hout" type="date" class="form-control" id="inputCheck_out" required
+                        [(ngModel)]="reservation.check_out">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputState">Country</label>
+                        <input name="h" type="text" class="form-control" id="inputCountry" required
+                        [(ngModel)]="reservation.country">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input name="hcity" type="text" class="form-control" id="inputCity" required
+                        [(ngModel)]="reservation.city">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="username">Full name (on the card)</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="username" placeholder="" 
+                            required="" [(ngModel)]="reservation.fullname">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="cardNumber">Card number</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
+                            </div>
+                            <input type="text" class="form-control" name="cardNumber" placeholder=""
+                            [(ngModel)]="reservation.cardNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                    <label><span class="hidden-xs">Expiration</span> </label>
+                        <input name="hexpiration" type="date" class="form-control" id="inputexpiration" required
+                        [(ngModel)]="reservation.expiration">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label data-toggle="tooltip" title=""
+                        data-original-title="3 digits code on back side of the card">CVV <i
+                            class="fa fa-question-circle"></i></label>
+                        <input name="cvv" type="text" class="form-control" id="CVV" required
+                        [(ngModel)]="reservation.cvv">
+                    </div>
+                </div>
+                
+                <button class="subscribe btn btn-primary btn-block" type="submit" [disabled]="authForm.invalid"> Confirm
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>

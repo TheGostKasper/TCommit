@@ -1,0 +1,195 @@
+<div class="container-wrapper colored-navbar-brand">
+    <div id="carouselExampleIndicators" class="carousel" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExampleIndicators" class="active"></li>
+            <li data-target="#carouselExampleIndicators"></li>
+            <li data-target="#carouselExampleIndicators"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100 hw-600" src="./../../assets/images/cmt/bck_1.jpg" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <img class="wh8" src="./../../assets/images/summitLS.png" alt="SummitLS">
+                    <p class="tfa">Find Accomodation</p>
+                    <div class="trns-r mt-10">
+                        <h3 class="mrg70">Discover more than 250,000 hotels with best price in over 200
+                            countries with SummitLS</h3>
+                    </div>
+                    <div class="trns-l mt-10">
+                        <form class="pd-10" id="srchForm" #srchForm="ngForm" (ngSubmit)="submitSearch(srch)">
+                            <div class="form-row m-rem">
+                                <div class="form-group col-md-12">
+                                    <input type="text" class="form-control" [(ngModel)]="srch.hotel" name="hotel" id="inputAddress"
+                                        placeholder="Destination">
+                                </div>
+                            </div>
+                            <div class="form-row rem">
+                                <div class="input-group col-md-6 col-sm-6">
+                                    <!-- <input type="datetime" class="form-control" placeholder="Check-in" name="dp" [(ngModel)]="srch.check_in"/> -->
+                                    <input id="dateOfBirthp" class="form-control" placeholder="Check-in" name="dp"
+                                        ngbDatepicker #dp="ngbDatepicker" [(ngModel)]="srch.check_in">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button">
+                                            <span class="fa fa-calendar-plus"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="input-group col-md-6 col-sm-6">
+                                        <!-- <input type="datetime" class="form-control" placeholder="Check-out" name="dp_out" [(ngModel)]="srch.check_out"/> -->
+
+                                    <input id="dateOfBirth" class="form-control" placeholder="Check-out" name="dp_out"
+                                        ngbDatepicker #dp_out="ngbDatepicker" [(ngModel)]="srch.check_out">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary calendar" (click)="dp_out.toggle()"
+                                            type="button">
+                                            <span class="fa fa-calendar-plus"></span>
+                                        </button>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="rem col-md-4 col-sm-4">
+                                    <select class="form-control slt" [(ngModel)]="srch.room" name="Room" id="inputRoom">
+                                        <option value="0">Number of rooms</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                                <div class="rem col-md-4 col-sm-4">
+                                    <select class="form-control slt" [(ngModel)]="srch.adults" name="Adults" id="inputAdults">
+                                        <option value="0">Adults</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                                <div class="rem col-md-4 col-sm-4">
+                                    <select class="form-control slt" [(ngModel)]="srch.childerens" name="Childerens" id="inputChilderens">
+                                        <option value="0">Childerens</option>
+                                        <option value="0">0</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <button class="btn btn-default col-md-12 trns-btn" id="btn"  [disabled]="srchForm.invalid">Find
+                                    my hotel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mrg10">
+    <div class="col-md-4 tcp">
+        <img class="im-m" src="./../../assets/images/cmt/world.png">
+        <p class="im-p">10 years of experience , More Than 250,000 Hotels in 47,000 destinations
+            in 200 countries</p>
+    </div>
+    <div class="col-md-4 tcp">
+        <img class="im-m" src="./../../assets/images/cmt/pig.png">
+        <p class="im-p">Transparency of prices. The price you see is always the final one.</p>
+    </div>
+    <div class="col-md-4 tcp">
+        <img class="im-m" src="./../../assets/images/cmt/heart.png">
+        <p class="im-p">Your dedicated SumitLS support team is never more than a phone call
+            <span [style.display]="visib?'contents':'none'" class="cmr" (click)="visib=!visib">...see more</span>
+            <span [style.display]="!visib?'contents':'none'">or email
+                away,providing one-on-one support before, during and after your hotel stay
+            </span>
+        </p>
+    </div>
+</div>
+<div class="ct-ner">
+    <div class="row">
+        <h3 class="h-trv">Specialized in Business Travel</h3>
+    </div>
+    <div class="logo">
+        <div class="city trans-container" *ngFor="let city of cities">
+            <img src="{{city.url}}" class="img-center">
+            <div class="content">
+                <p class="city-name"> {{city.name}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="logo">
+    <div class="cities">
+        <div class="trans-container">
+            <img src="{{this.assestsUrl}}/circles/Berlin.jpg" alt="" class="img-logo ">
+            <div class="content">
+                <p class="txt-center">Berlin</p>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <div class="trans-container">
+            <img src="{{this.assestsUrl}}/circles/Paris.jpg" alt="" class="img-logo ">
+            <div class="content">
+                <p class="txt-center">Paris</p>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <div class="trans-container">
+            <img src="{{this.assestsUrl}}/circles/london.jpg" alt="" class="img-logo ">
+            <div class="content">
+                <p class="txt-center">london</p>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <div class="trans-container">
+            <img src="{{this.assestsUrl}}/circles/Las Vegas.jpg" alt="" class="img-logo ">
+            <div class="content">
+                <p class="txt-center">Las Vegas</p>
+            </div>
+        </div>
+    </div>
+    <div class="cities">
+        <div class="trans-container">
+            <img src="{{this.assestsUrl}}/circles/Dubai.jpg" alt="" class="img-logo ">
+            <div class="content">
+                <p class="txt-center">Dubai</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="sec3">
+    <div class="sct trans-container">
+        <img src="{{this.assestsUrl}}/plan/128215212.jpg" alt="">
+        <div class="content full">
+            <p>We are 300 travel experts at you finger tips , We have 5 offices around the world equipped with
+                Innovative technology and industry expertise to provide a one-of-a-kind hotel experience</p>
+        </div>
+    </div>
+    <div class="sct">
+        <div class="h50 trans-container">
+            <img src="{{this.assestsUrl}}/satisfaction/cbc.jpg" class="" alt="">
+            <div class="content full">
+                <p>Your Satisfaction is our first priority : You are never alone , Our traveller’s customer service is
+                    always at your side , Experienced professionals help you all the way , Our web is available in 5
+                    languages and is supported by an international team</p>
+            </div>
+        </div>
+        <div class="h50 trans-container">
+            <img src="{{this.assestsUrl}}/fastest/online-checkout-klarna.jpeg" class="" alt="">
+            <div class="content full">
+                <p>The fastest and most comfortable booking system In just 3 steps, explore all the hotels all over the
+                    world</p>
+            </div>
+        </div>
+
+    </div>
+</div>

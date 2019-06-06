@@ -1,0 +1,203 @@
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Age</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngIf="users.length==0">
+            <td colspan="7"> </td>
+        </tr>
+        <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
+            <td>{{ i+1 }}</td>
+            <td>{{user.name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone}}</td>
+            <td>{{user.age}}</td>
+            <td>{{user.address}}</td>
+            <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+            <td>
+                <div class="btn-group">
+                    <button class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-user" (click)="confirmSelection(user)">
+                        <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="bs-margin btn btn-danger" data-toggle="modal" data-target=".bs-example-modal-sm"
+                        (click)="confirmSelection(user)">
+                        <span class="fa fa-remove" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+<div class="modal fade bs-add-user" tabIndex="-1" role="dialog" aria-labelledby="bsAdduser">
+    <form class="form-horizontal" (ngSubmit)="adduser(user)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtModal">Add User</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <label for="inputname" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" required id="ename" name="ename" [(ngModel)]="user.name" required class="form-control"
+                                placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" required class="form-control" placeholder="Email" name="eEmail"
+                                required [(ngModel)]="user.email">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputrate" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" required class="form-control" placeholder="Password" name="epassword"
+                                required [(ngModel)]="user.password">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-8">
+                            <input type="tel" required class="form-control" placeholder="Phone Number" name="ephone"
+                                required [(ngModel)]="user.phone">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" required class="form-control" placeholder="Address" name="eaddress"
+                                required [(ngModel)]="user.address">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Age</label>
+                        <div class="col-sm-8">
+                            <input type="number" min="15" max="90" required class="form-control" placeholder="Age" name="eage"
+                                required [(ngModel)]="user.age">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="bs-margin btn btn-info">
+                            <span class="glyphicon glyphicon-geer" aria-hidden="true">Submit</span>
+                        </button>
+                        <button type="button" class="bs-margin btn btn-danger" id="cancleAddition" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true">Cancel</span>
+                        </button>
+                    </div>
+                    <!-- <div class="row form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-offset-2 col-sm-8">
+                            <button type="button" class="btn btn-danger" id="cancleAddition" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade bs-edit-user" tabIndex="-1" role="dialog" aria-labelledby="bsEditable">
+    <form class="form-horizontal" (ngSubmit)="updateuser(curr_user)">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="edtModal">Update</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row form-group">
+                        <label for="inputname" class="col-sm-2 control-label">Name</label>
+                        <div class="col-sm-8">
+                            <input type="text" required id="name" name="name" [(ngModel)]="curr_user.name" required
+                                class="form-control" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-8">
+                            <input type="email" required class="form-control" placeholder="Email" name="Email" required
+                                [(ngModel)]="curr_user.email">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputrate" class="col-sm-2 control-label">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" required class="form-control" placeholder="Password" name="password"
+                                required [(ngModel)]="curr_user.password">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Phone</label>
+                        <div class="col-sm-8">
+                            <input type="tel" required class="form-control" placeholder="Phone Number" name="phone"
+                                required [(ngModel)]="curr_user.phone">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Address</label>
+                        <div class="col-sm-8">
+                            <input type="text" required class="form-control" placeholder="Address" name="address"
+                                required [(ngModel)]="curr_user.address">
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label for="inputdescription" class="col-sm-2 control-label">Age</label>
+                        <div class="col-sm-8">
+                            <input type="number" min="15" max="90" required class="form-control" placeholder="Age" name="age"
+                                required [(ngModel)]="curr_user.age">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                        <button class="bs-margin btn btn-info" type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-geer" aria-hidden="true">Submit</span>
+                        </button>
+                        <button type="button" class="bs-margin btn btn-danger" id="cancleEditable" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<div class="modal fade bs-example-modal-sm" tabIndex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h4 class="modal-title" id="myModalLabel">تحذير</h4>
+            </div>
+            <div class="modal-body">
+                هل انت متأكد من حذف هذا ؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="cancleModal" data-dismiss="modal">الغاء</button>
+                <button type="button" class="btn btn-danger" (click)="deleteuser()">حذف</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="m_scroll_top" class="m-scroll-top" data-toggle="modal" data-target=".bs-add-user">
+    <i class="fa fa-plus"></i>
+</div>

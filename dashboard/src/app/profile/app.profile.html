@@ -1,0 +1,155 @@
+<div class="row justify-content-center pt-5">
+    <div class="col-12 col-md-10  wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
+        <ul class="nav nav-tabs flex-column flex-sm-row" id="myTab" role="tablist">
+            <li class="nav-item mr-md-1">
+                <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                    aria-controls="home" aria-selected="true" aria-expanded="true">
+                    <i class="fa fa-address-book pr-1"></i> Basic Info</a>
+            </li>
+            <li class="nav-item mr-md-1">
+                <a href="" data-target="#exchange_dst" data-toggle="tab" class="nav-link ">
+                    <i class="fa fa-info pr-1"></i> Inforamtions</a>
+            </li>
+            <li class="nav-item mr-md-1">
+                <a href="" data-target="#p_dst" data-toggle="tab" class="nav-link ">
+                    <i class="fa fa-image pr-1"></i> Images</a>
+            </li>
+            <li class="nav-item mr-md-1">
+                <a href="" data-target="#checks_dst" data-toggle="tab" class="nav-link ">
+                    <i class="fa fa-clock pr-1"></i> Checks</a>
+            </li>
+            <li class="nav-item mr-md-1">
+                <a href="" data-target="#dur_dst" data-toggle="tab" class="nav-link " (click)="showRoom=true">
+                    <i class="fa fa-bed pr-1"></i> Rooms</a>
+            </li>
+        </ul>
+        <div class="tab-content bg-white rounded-bottom rounded-right" id="myTabContent">
+            <div class="tab-pane fade active show" id="home" role="tabpanel" aria-labelledby="home-tab"
+                aria-expanded="true">
+                <form id="basicInfoform" #authForm="ngForm" (ngSubmit)="UpdateHotel(curr_hotel)">
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputname">Name</label>
+                            <input name="hname" type="text" class="form-control" id="inputname" placeholder="Name"
+                                [(ngModel)]="curr_hotel.name" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputRate">Rate</label>
+                            <input name="inputRate" type="number" min="1" class="form-control" id="inputRate"
+                                placeholder="Rate" [(ngModel)]="curr_hotel.rate" required>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="inputPNight">Price/night</label>
+                            <input name="inputPNight" type="number" min="0" class="form-control" id="inputPNight"
+                                placeholder="Price/night" [(ngModel)]="curr_hotel.price_night" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Email</label>
+                            <input name="hemail" type="email" class="form-control" id="inputEmail4" placeholder="Email"
+                                [(ngModel)]="curr_hotel.email" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword">Password</label>
+                            <input name="hpassword" type="password" class="form-control" id="inputPassword"
+                                placeholder="Password" [(ngModel)]="curr_hotel.password" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress">Address</label>
+                        <input name="haddress" type="text" class="form-control" id="inputAddress"
+                            placeholder="1234 Main St" [(ngModel)]="curr_hotel.address" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputState">Country</label>
+                            <input name="h" type="text" class="form-control" id="inputCountry"
+                                [(ngModel)]="curr_hotel.country" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputCity">City</label>
+                            <input name="hcity" type="text" class="form-control" id="inputCity"
+                                [(ngModel)]="curr_hotel.city" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSDescribition">Features</label>
+                        <tag-input [(ngModel)]='curr_hotel.extra.features' name="optional" id="value"
+                            [identifyBy]="'name'" [displayBy]="'name'"></tag-input>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputSDescribition">Short describtion</label>
+                        <textarea name="hsd" type="text" class="form-control" id="inputSDescribition"
+                            [(ngModel)]="curr_hotel.short_describtion" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inputDescribition">Describtion</label>
+                        <textarea name="hd" type="text" draggable="true" rows="5" class="form-control"
+                            id="inputDescribition" [(ngModel)]="curr_hotel.describtion" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input name="havailable" class="form-check-input" type="checkbox" id="gridCheck"
+                                [(ngModel)]="curr_hotel.available">
+                            <label class="form-check-label" for="gridCheck">
+                                Available
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="authForm.invalid">Update Changes </button>
+                </form>
+            </div>
+            <div id="exchange_dst" class="tab-pane">
+                <app-information hotel="{{curr_hotel | json}}"></app-information>
+            </div>
+            <div id="p_dst" class="tab-pane fade ">
+                <form id="addImageform" #addImageForm="ngForm" (ngSubmit)="uploadImage(file_obj)">
+                    <div class="form-row">
+                        <div class="form-group col-md-9">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile02"
+                                    (change)="readFile($event.target.files)">
+                                <label class="custom-file-label" for="inputGroupFile02">{{file_obj.name}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-indo" id=""
+                                    [disabled]="file_obj.id===''">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group ctn">
+                            <img src="{{file_obj.image}}" alt="{{file_obj.id}}" srcset="" width="150" height="150">
+                        </div>
+                    </div>
+                </form>
+                <section class="gallery-block compact-gallery">
+                    <div class="container">
+                        <div class="row no-gutters">
+                            <div class="col-md-6 col-lg-4 item zoom-on-hover"
+                                *ngFor="let image of curr_hotel.extra.images">
+                                <a class="lightbox">
+                                    <img class="img-fluid image" src="{{image.url}}">
+                                    <span class="description">
+                                        <i class="fa fa-remove btl pointer" (click)="deleteImage(image)"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div id="checks_dst" class="tab-pane fade ">
+                <app-Checks c_hotel="{{curr_hotel | json}}"></app-Checks>
+            </div>
+            <div id="dur_dst" class="tab-pane fade ">
+                <app-room hotel_id="{{curr_hotel._id}}" *ngIf="showRoom"></app-room>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="card" id="bodyEmail">
+    <div class="card-header">Your booking details</div>
+    <div class="card-body">
+
+        <div class="card-text">
+
+            <p>Thanks {{reservation.fullname}}!</p>
+            <p>Your booking in {{reservation.hotel.name}} is confirmed.
+                {{reservation.hotel.name}} is expecting you on 24 January
+                Your payment will be handled by {{reservation.hotel.name}}.</p>
+            <p>
+                The 'Payment' section below has more details
+
+                Make your trip even more special. Get a better room
+                Easily make changes online to all your bookings by creating a password.
+            </p>
+            <p>Check this link for more info  <a href="http://localhost:5000/reservation/{{reservation._id}}" class="btn btn-primary">http://localhost:5000/reservation/{{reservation._id}}</a></p>
+        </div>
+        <div class="card-body">
+            <div class="bookingDetail mar0t">
+                <div class="hotel-header">
+                    <h3>{{reservation.hotel.name}}</h3>
+                    <p class="rating">
+                        <span class="istar" *ngFor="let rt of counter()"><i class="fa fa-star"></i></span>
+                    </p>
+                    <span class="location"><i class="fa fa-map-marker"></i>{{reservation.hotel.address}}</span>
+                    <span class="location"><i class="fa fa-phone"></i>{{reservation.hotel.phone}}</span>
+                </div>
+                <img src="{{selectedImg.url}}" class="img-center img-selected" />
+                <div class="hotel-check">
+                    <p><strong>Check-in</strong> {{reservation.check_in |date:'dd/MM/yyyy'}}</p>
+                    <p><strong>Check-out</strong> {{reservation.check_out |date:'dd/MM/yyyy'}}</p>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">Room(s) details</div>
+            <div class="card-body">
+                <div class="rmh">
+                    <h4 class="rmh-name">{{reservation.room.name}}</h4>
+                    <p class="rmh-detail">
+                        {{reservation.room.describtion}}
+                    </p>
+                    <div class="hotel-check">
+                        <p><strong>Adults</strong> {{reservation.room.adults}}</p>
+                        <p><strong>Children</strong> {{reservation.room.children}}</p>
+                    </div>
+                    <div class="facilities">
+                        <p>Facilities:</p>
+                        <span *ngFor="let fac of reservation.room.extra.facilities">{{fac.name}} </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a href="#" class="btn btn-primary">Modify You reservation</a>
+        <a href="#" class="btn btn-primary">Cancel Your reservation</a>
+    </div>
+
+</div>
+<button class="btn btn-primary" (click)="submitEmail()">Send Email</button>
