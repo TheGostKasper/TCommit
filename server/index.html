@@ -12,7 +12,7 @@
 <body>
     <h2 id="mf">Hello mf</h2>
     <script>
-        var socket = io.connect('http://localhost:8080');
+        var socket = io.connect('http://167.71.194.77:8080');
 
         document.getElementById('mf').onclick = () => {
             socket.emit("chaty", { id: 150, name: "moe", message: "hello mf" });

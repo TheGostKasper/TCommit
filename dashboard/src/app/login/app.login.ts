@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
             if (res.data == null) {
                 alert(res.message);
             } else {
-                localStorage.setItem('token', res.token);
+                localStorage.setItem('token', JSON.stringify(res.token));
                 localStorage.setItem('current_user', JSON.stringify(res.data));
                  window.location.href = '';
             }
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
     }
 
     signUp(user) {
+        
         const _user = { ...user };
         _user.password = this.encryption.b64EncodeUnicode(user.password);
         this.authenticationService.signUp(_user).subscribe((res: any) => {
@@ -39,8 +40,8 @@ export class LoginComponent implements OnInit {
                 alert(res.message);
                 this.login(_user);
             } else {
-                localStorage.setItem('token', res.token);
-                localStorage.setItem('current_user', res.data);
+                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem('current_user', JSON.stringify(res.data));
                 window.location.href = '';
             }
             alert(res.message);
