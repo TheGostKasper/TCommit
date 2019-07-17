@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class HelperService {
-    ApiUrl = 'http://167.71.194.77:3000';
+    ApiUrl = 'http://167.71.200.18:3000';
     // 'http://iisnode.local.com';
     constructor(
         private http: HttpClient
