@@ -5,7 +5,9 @@ span.im-caret {
     -webkit-animation: 1s blink step-end infinite;
     animation: 1s blink step-end infinite;
 }
-
+#navbarSupportedContent{
+    margin-left: 10px;
+}
 @keyframes blink {
     from, to {
         border-right-color: black;
@@ -309,6 +311,9 @@ select{
 .dropdown-item:hover{
     background: #a92943;
     color: white;
+}
+.nav-link .menu-item{
+    color: black;
 }
 .menu-item:hover{
     background: #a92943;

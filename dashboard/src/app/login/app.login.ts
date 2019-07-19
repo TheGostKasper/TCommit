@@ -18,12 +18,13 @@ export class LoginComponent implements OnInit {
 
     login(user) {
         const _user = { ...user };
+        _user.email=_user.email.toLowerCase();
         _user.password = this.encryption.b64EncodeUnicode(user.password);
         this.authenticationService.logIn(_user).subscribe((res: any) => {
             if (res.data == null) {
                 alert(res.message);
             } else {
-                localStorage.setItem('token', JSON.stringify(res.token));
+                localStorage.setItem('token', res.token);
                 localStorage.setItem('current_user', JSON.stringify(res.data));
                  window.location.href = '';
             }
@@ -32,16 +33,17 @@ export class LoginComponent implements OnInit {
     }
 
     signUp(user) {
-        
         const _user = { ...user };
+        _user.type="User";
         _user.password = this.encryption.b64EncodeUnicode(user.password);
+        _user.email=_user.email.toLowerCase();
         this.authenticationService.signUp(_user).subscribe((res: any) => {
             if (res.data == null) {
                 alert(res.message);
                 this.login(_user);
             } else {
-                localStorage.setItem('token', JSON.stringify(res.token));
-                localStorage.setItem('current_user', JSON.stringify(res.data));
+                localStorage.setItem('token', res.token);
+                localStorage.setItem('current_user', res.data);
                 window.location.href = '';
             }
             alert(res.message);

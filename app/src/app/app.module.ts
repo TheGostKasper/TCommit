@@ -30,6 +30,9 @@ import { LandpageComponent } from './landpage/app.landpage';
 import { ResultsComponent } from './results/app.results';
 import { ProfileComponent } from './profile/app.profile';
 import { ReservationComponent } from './reservation/app.reservation';
+import { GuestsComponent } from './guests/app.guests';
+import { ConfirmReservationComponent } from './confirmReservation/app.confirmReservation';
+import { TermsComponent } from './terms/app.terms';
 
 import 'rxjs/add/operator/do';
 //const ctr = new Container();
@@ -48,7 +51,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         LandpageComponent,
         ResultsComponent,
         ProfileComponent,
-        ReservationComponent
+        ReservationComponent,
+        GuestsComponent,
+        TermsComponent,
+        ConfirmReservationComponent
   ],
   imports: [
     NgbModule.forRoot(),

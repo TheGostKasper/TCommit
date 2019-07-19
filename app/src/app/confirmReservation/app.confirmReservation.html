@@ -1,0 +1,87 @@
+<div class="pd20">
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Rooms</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Price/Night</th>
+                    <th scope="col">Days</th>
+                    <th scope="col">Hotel</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="all_reservations.length===0">
+                    <td colspan="9"> No available reservations , try add some and get back !</td>
+                </tr>
+                <tr *ngFor="let room of all_reservations | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
+                    <td>{{i+1}}</td>
+                    <td>{{room.email}}</td>
+                    <td>{{room.phone}}</td>
+                    <td>{{room.noRooms}}</td>
+                    <td>{{room.status}}</td>
+                    <td>{{room.price_night}}</td>
+                    <td>{{room.days}}</td>
+                    <td *ngIf="room.room">{{room.hotel.name}}</td>
+                    <td *ngIf="!room.room" colspan="1">No Hotel available for this Reservation</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="submit" [disabled]="!room.room" class="bs-margin btn btn-info" data-toggle="modal"
+                                data-target=".bs-add-rsv" (click)="Confirm(room)">
+                                <span class="fa fa-edit" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+
+<div class="modal fade bs-add-rsv" tabIndex="-1" role="dialog" aria-labelledby="bsAaddRsv">
+    <form class="form-horizontal" id="AddRsvForm" #AddRsvForm="ngForm" (ngSubmit)="confirmReservation(curr_reservations)">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Reservation</h4>
+                    <button type="button" id="addModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="noNight">Number Of Rooms</label>
+                            <input name="noNight" type="number" class="form-control" id="noNight" required [(ngModel)]="curr_reservations.noRooms">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputCheck_in">Check-in</label>
+                            <input name="hin" type="date" class="form-control" id="inputCheck_in" required [(ngModel)]="curr_reservations.check_in">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for="inputCheck_out">Check-out</label>
+                            <input name="hout" type="date" class="form-control" id="inputCheck_out" required
+                                [(ngModel)]="curr_reservations.check_out">
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="form-group center">
+                        <button type="submit" class="btn btn-primary form-control" [disabled]="AddRsvForm.invalid">Submit Modification Request</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

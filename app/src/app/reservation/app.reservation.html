@@ -1,6 +1,6 @@
 <div class="pd20">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4" *ngIf="reservation.room">
             <div class="card">
                 <div class="card-header">Your booking details</div>
                 <div class="card-body">
@@ -8,15 +8,15 @@
                         <div class="hotel-header">
                             <h3>{{reservation.hotel.name}}</h3>
                             <p class="rating">
-                                <span class="istar" *ngFor="let rt of counter()"><i
-                                    class="fa fa-star"></i></span>
-                        </p>
+                                <span class="istar" *ngFor="let rt of counter()"><i class="fa fa-star"></i></span>
+                            </p>
                             <span class="location"><i class="fa fa-map-marker"></i>{{reservation.hotel.address}}</span>
                         </div>
                         <img src="{{selectedImg.url}}" class="img-center img-selected" />
                         <div class="hotel-check">
-                            <p><strong>Check-in</strong> {{reservation.check_in }}</p>
-                            <p><strong>Check-out</strong> {{reservation.check_out }}</p>
+                            <p><strong>Price/night</strong> {{reservation.hotel.price_night }}</p>
+                            <p><strong>Check-in</strong> {{reservation.check_in |date:'dd/MM/yyyy'}}</p>
+                            <p><strong>Check-out</strong> {{reservation.check_out |date:'dd/MM/yyyy'}}</p>
                         </div>
                         <br />
                     </div>
@@ -42,18 +42,34 @@
             </div>
 
         </div>
+
+        <div class="col-md-4" *ngIf="!reservation.room">
+            <div class="card" >
+                <div class="card-header">Reservation details</div>
+                <div class="card-body">
+                    <div class="rmh">
+                        <h4 class="rmh-name">Hotel Name: {{reservation.hotelName}}</h4>
+                       
+                        <div class="hotel-check">
+                            <p><strong>Nights: </strong> {{reservation.days}}</p>
+                            <p><strong>Price/Night: </strong> {{reservation.price_night}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-8">
             <form class="card-info" id="basicInfoform" #authForm="ngForm" (ngSubmit)="confirmReservation(reservation)">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputfname">First Name</label>
                         <input name="fname" type="text" class="form-control" id="inputfname" placeholder="First Name"
-                            required  [(ngModel)]="reservation.firstName">
+                            required [(ngModel)]="reservation.firstname">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputlname">Last Name</label>
                         <input name="lname" type="text" class="form-control" id="inputlname" placeholder="Last Name"
-                            required [(ngModel)]="reservation.lastName">
+                            required [(ngModel)]="reservation.lastname">
                     </div>
                 </div>
                 <div class="form-row">
@@ -64,32 +80,28 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputPhone">Phone</label>
-                        <input name="hpassword" type="tel" class="form-control" id="inputPhone"
-                            placeholder="Phone Number" required [(ngModel)]="reservation.Phone">
+                        <input name="hpassword" type="tel" class="form-control" id="inputPhone" placeholder="Phone Number"
+                            required [(ngModel)]="reservation.phone">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputCheck_in">Check-in</label>
-                        <input name="hin" type="date" class="form-control" id="inputCheck_in" required
-                        [(ngModel)]="reservation.check_in">
+                        <input name="hin" type="date" class="form-control" id="inputCheck_in" required [(ngModel)]="reservation.check_in">
                     </div>
                     <div class="form-group col-md-6">
                         <label for="inputCheck_out">Check-out</label>
-                        <input name="hout" type="date" class="form-control" id="inputCheck_out" required
-                        [(ngModel)]="reservation.check_out">
+                        <input name="hout" type="date" class="form-control" id="inputCheck_out" required [(ngModel)]="reservation.check_out">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputState">Country</label>
-                        <input name="h" type="text" class="form-control" id="inputCountry" required
-                        [(ngModel)]="reservation.country">
+                        <input name="h" type="text" class="form-control" id="inputCountry" required [(ngModel)]="reservation.country">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input name="hcity" type="text" class="form-control" id="inputCity" required
-                        [(ngModel)]="reservation.city">
+                        <label for="inputCity">City/state</label>
+                        <input name="hcity" type="text" class="form-control" id="inputCity" required [(ngModel)]="reservation.city">
                     </div>
                 </div>
                 <div class="form-row">
@@ -99,8 +111,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="username" placeholder="" 
-                            required="" [(ngModel)]="reservation.fullname">
+                            <input type="text" class="form-control" name="username" placeholder="" required=""
+                                [(ngModel)]="reservation.fullname">
                         </div>
                     </div>
 
@@ -110,27 +122,47 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-credit-card"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="cardNumber" placeholder=""
-                            [(ngModel)]="reservation.cardNumber">
+                            <input type="text" class="form-control" name="cardNumber" placeholder="" [(ngModel)]="reservation.cardNumber">
                         </div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                    <label><span class="hidden-xs">Expiration</span> </label>
-                        <input name="hexpiration" type="date" class="form-control" id="inputexpiration" required
-                        [(ngModel)]="reservation.expiration">
+                        <label><span class="hidden-xs">Expiry Date</span> </label>
+                        <input name="hexpiration" type="text" class="form-control" id="inputexpiration" required
+                            [(ngModel)]="reservation.expiration" placeholder="-- / --">
                     </div>
-                    <div class="form-group col-md-6">
-                        <label data-toggle="tooltip" title=""
-                        data-original-title="3 digits code on back side of the card">CVV <i
-                            class="fa fa-question-circle"></i></label>
-                        <input name="cvv" type="text" class="form-control" id="CVV" required
-                        [(ngModel)]="reservation.cvv">
+                    <div class="form-group col-md-2">
+                        <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CCV
+                            <i class="fa fa-question-circle"></i></label>
+                        <input name="cvv" type="text" class="form-control" id="CVV" required [(ngModel)]="reservation.cvv">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label data-toggle="tooltip" title="">Card Type <i class="fa fa-question-circle"></i></label>
+                        <select class="form-control" name="cardType" id="cardType" [(ngModel)]="reservation.cardType">
+                            <option value="VISA">VISA</option>
+                            <option value="MasterCard">MasterCard </option>
+                            <option value="American Express ">American Express </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label><span class="hidden-xs">Billing Address</span> </label>
+                        <input name="BillingAddress" type="text" class="form-control" id="bAddress" required
+                            [(ngModel)]="reservation.billing_address">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        
+                        <label><span><input  type="checkbox" class=""  required></span>
+                            <span class="hidden-xs"> I have read and agree to the  <a class="trms" [routerLink]="['/terms']" >Terms and Conditions</a></span> </label>
                     </div>
                 </div>
                 
-                <button class="subscribe btn btn-primary btn-block" type="submit" [disabled]="authForm.invalid"> Confirm
+                <button class="subscribe btn btn-primary btn-block" type="submit" [disabled]="authForm.invalid">
+                    Confirm
                 </button>
             </form>
         </div>

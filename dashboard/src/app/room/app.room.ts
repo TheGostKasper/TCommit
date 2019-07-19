@@ -27,10 +27,12 @@ export class RoomComponent implements OnInit {
         id: ''
     }
     h_id
+    glob_user={}
     constructor(private service: CRUDService,private cmn:CommonFunc, private crudService: CRUDService) { }
 
     ngOnInit(): void {
         // throw new Error("Method not implemented.");
+        this.glob_user = JSON.parse(localStorage.getItem('current_user'));
     }
 
     @Input()

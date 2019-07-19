@@ -10,18 +10,18 @@ body{
     margin-top: 30px;
 }
 .result-filter-wrapper h3 {
-    border-bottom: 1px solid #d60d45;
+    border-bottom: 1px solid #6c757d;
 }
 .result-filter-wrapper h3 .icon {
     border-radius: 50%;
-    color: #D60D45;
+    color: #6c757d;
     font-size: 16px;
     padding: 6px;
-    border: 1px solid #D60D45;
+    border: 1px solid #6c757d;
 }
 .fg-line{
-    border-bottom: 1px solid #dc3545;
-    padding-bottom: 15px;
+    border-bottom: 1px solid #6c757d;
+    padding-bottom: 5px;
     background: #f7f7f7;
 }
 .into{
@@ -33,7 +33,7 @@ body{
 label.lbl{
     display: block;
     margin-bottom: 0.7rem;
-    background: #dc3545;
+    background: #6c757d;
     padding: 10px;
     color: white;
     font-size: 18px;
@@ -97,10 +97,11 @@ p.desc{
     border-bottom: 1px solid #dddddd;
 }
 .facilities span{
-    background: #dc3545;
+    background: #86560d;
     color: white;
-    padding: 10px;
+    padding: 7px;
     border-radius: 30px;
+    font-size: 13px;
 }
 .facilities span.fac-spn{
     

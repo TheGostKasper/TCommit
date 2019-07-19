@@ -10,7 +10,7 @@ import { SendEmailComponent } from './sendEmail/app.sendEmail'
 
 
 const routes: Routes = [
-    { path: '', redirectTo: '/user', pathMatch: 'full' },
+    { path: '', redirectTo: '/reservations', pathMatch: 'full' },
     { path: 'user', component: UserComponent },
     { path: 'reservations', component: reservationsComponent },
     { path: 'hotel', component: HotelComponent },
@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'email/:id', component: SendEmailComponent },
     { path: 'login', component: LoginComponent },
     // implement notfound page later
-    { path: '**', redirectTo: '/user', pathMatch: 'full' }
+    { path: '**', redirectTo: '/reservations', pathMatch: 'full' }
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

@@ -11,6 +11,7 @@ import { LandpageComponent } from './landpage/app.landpage';
 import { ResultsComponent } from './results/app.results';
 import { ProfileComponent } from './profile/app.profile';
 import { ReservationComponent } from './reservation/app.reservation';
+import { ConfirmReservationComponent } from './confirmReservation/app.confirmReservation';
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -23,7 +24,8 @@ export class Container {
         LandpageComponent,
         ResultsComponent,
         ProfileComponent,
-        ReservationComponent
+        ReservationComponent,
+        ConfirmReservationComponent
     ];
     providers = [{
         provide: HTTP_INTERCEPTORS,

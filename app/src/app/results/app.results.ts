@@ -41,9 +41,12 @@ export class ResultsComponent implements OnInit {
   ngOnInit() {
 
     let srch = JSON.parse(localStorage.getItem('dataSearch'));
+
+
+
     this.crudService.post({
       url: 'api/hotel/search',
-      body: { hotel: srch.hotel, page: this.page, pageCount: 100, check_in: srch.check_in, check_out: srch.check_out }
+      body: { hotel: srch.hotel, page: this.page, pageCount: 100}
     }).subscribe((res: any) => {
       this.hotels = res.data;
       console.log(srch);

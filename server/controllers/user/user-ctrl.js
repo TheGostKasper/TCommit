@@ -1,4 +1,5 @@
 const User = require('./user-modal');
+const jwt = require('jsonwebtoken');
 
 module.exports = function (app) {
     app.post('/api/user', (req, res) => {
@@ -18,8 +19,10 @@ module.exports = function (app) {
         });
     });
 
+   
+
     app.get('/api/user', (req, res) => {
-        getUserAsync().then(data => {
+        getUserAsync({type:"User"}).then(data => {
             res.send({ data: data, message: "User found" });
         }).catch(err => {
             res.send({ data: null, err: err });
@@ -46,6 +49,15 @@ module.exports = function (app) {
     //         res.send({ data: null, err: err });
     //     });
     // });
+
+    app.post('/api/user/manage', (req, res) => {
+        getUserAsync({email:req.body.email,password:req.body.password}).then(data => {
+            res.send({ data: data,token: getToken(data), message: "User found" });
+        }).catch(err => {
+            res.send({ data: null, err: err });
+        });
+    });
+
     app.put('/api/user/:id', (req, res) => {
         User.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, function (err, objs) {
             if (err) {
@@ -107,5 +119,12 @@ module.exports = function (app) {
         } catch (error) {
             res.send({ data: null, err: error });
         }
+    }
+     // get token
+     function getToken(user) {
+        const payload = {
+            user: user
+        };
+        return jwt.sign(payload, app.get('superSecret'));
     }
 }

@@ -168,7 +168,7 @@ span.fa{
     float: left;
 }
 .bg-trans {
-    padding: 5px 40px;
+    padding: 8px 40px;
     color:white;
     background: #00000030;
 }
@@ -262,6 +262,7 @@ p.txt-center{
 .tcp{
     padding: 10px;
     text-align: center;
+    Z-INDEX: -1;
 }
 .slt{
     font-size: 12px;
@@ -368,7 +369,90 @@ ul.exul>li{
     height: 300px;
     margin: 8px;
 }
+.terms{
+    margin: 20px;
+    padding: 20px;
+    color: white;
+    font-size: 18;
+}
+.trms{
+    text-decoration: underline;
+}
+.bg-transMubte{
+    padding: 8px 40px;
+    color:white;
+    background: #0a0909de;
+}
 
+.btnSelect{
+    padding: 5px;
+    background: #3a353100;
+    color: white;
+    border: none;
+}
+.selectOpt{
+    color: white;
+    background: black;
+}
+
+.nion{
+    position: absolute;
+    z-index: 1050;
+    position: absolute;
+    padding: 2px;
+    background: #000000;
+    width: 97%;
+}
+.btn-ndh{
+    background: #ffed00;
+    color: black;
+}
+.btn-mtb{
+    background: #212529;
+    color: white;
+}
+.cnfrm{
+    text-align: center;
+    padding: 10px;
+}
+
+    .nion  ul>li{
+        display: flex;
+        padding: 1px;
+        border-bottom: 1px solid gray;
+        cursor: pointer;
+        margin-left: -40px;
+    }
+    .nion  ul>li:hover{
+        background: gray;
+        color: black;
+    }
+.show{
+    display: block
+}
+.hide{
+    display: none;
+}
+.srchHotels{
+    position: relative;
+}
+.table{
+    background: gray;
+}
+.table>tbody{
+    background: aliceblue;
+}
+
+div.modal-body .form-row{
+    padding: 10px;
+}
+
+.white{
+    color: white;
+}
+.carousel-inner {
+    overflow: visible;
+}
 @media (max-width:900px){
     div.trans-container >div.full p {
        padding: 2px;

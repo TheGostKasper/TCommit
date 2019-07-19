@@ -6,14 +6,13 @@
             <th>Email</th>
             <th>Phone</th>
             <th>Age</th>
-            <th>Address</th>
-            <th>Date</th>
+            <th>Job Title</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         <tr *ngIf="users.length==0">
-            <td colspan="7"> </td>
+            <td colspan="6"> </td>
         </tr>
         <tr *ngFor="let user of users | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
             <td>{{ i+1 }}</td>
@@ -21,8 +20,7 @@
             <td>{{user.email}}</td>
             <td>{{user.phone}}</td>
             <td>{{user.age}}</td>
-            <td>{{user.address}}</td>
-            <td>{{user.created_at | date:'dd/MM/yyyy'}}</td>
+            <td>{{user.jobTitle}}</td>
             <td>
                 <div class="btn-group">
                     <button class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-user" (click)="confirmSelection(user)">
@@ -68,6 +66,16 @@
                         </div>
                     </div>
                     <div class="row form-group">
+                            <label for="inputrate" class="col-sm-2 control-label">Type</label>
+                            <div class="col-sm-8">
+                                    <select required class="form-control" placeholder="type" name="etype"
+                                    required [(ngModel)]="user.type">
+                                        <option value="User">User</option>
+                                        <option value="Client">Client</option>
+                                    </select>
+                            </div>
+                        </div>
+                    <div class="row form-group">
                         <label for="inputdescription" class="col-sm-2 control-label">Phone</label>
                         <div class="col-sm-8">
                             <input type="tel" required class="form-control" placeholder="Phone Number" name="ephone"
@@ -75,11 +83,16 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                        <label for="inputdescription" class="col-sm-2 control-label">Address</label>
-                        <div class="col-sm-8">
-                            <input type="text" required class="form-control" placeholder="Address" name="eaddress"
-                                required [(ngModel)]="user.address">
-                        </div>
+                            <label for="inputdescription" class="col-sm-2 control-label">Job Title</label>
+                            <div class="col-sm-8">
+                                    <select required class="form-control" placeholder="Job Title" name="jtitle"
+                                    required [(ngModel)]="user.jobTitle" >
+                                        <option value="Owner">Owner</option>
+                                        <option value="Sales">Sales</option>
+                                        <option value="Operations">Operations</option>
+                                        <option value="Manager">Manager</option>
+                                    </select>
+                            </div>
                     </div>
                     <div class="row form-group">
                         <label for="inputdescription" class="col-sm-2 control-label">Age</label>
@@ -99,16 +112,6 @@
                             <span class="glyphicon glyphicon-remove" aria-hidden="true">Cancel</span>
                         </button>
                     </div>
-                    <!-- <div class="row form-group">
-                        <div class="col-sm-offset-2 col-sm-8">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                    <div class="row form-group">
-                        <div class="col-sm-offset-2 col-sm-8">
-                            <button type="button" class="btn btn-danger" id="cancleAddition" data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -145,6 +148,16 @@
                         </div>
                     </div>
                     <div class="row form-group">
+                            <label for="type" class="col-sm-2 control-label">Type</label>
+                            <div class="col-sm-8">
+                                    <select required class="form-control" placeholder="type" name="type"
+                                    required [(ngModel)]="curr_user.type">
+                                        <option value="User">User</option>
+                                        <option value="Client">Client</option>
+                                    </select>
+                            </div>
+                        </div>
+                    <div class="row form-group">
                         <label for="inputdescription" class="col-sm-2 control-label">Phone</label>
                         <div class="col-sm-8">
                             <input type="tel" required class="form-control" placeholder="Phone Number" name="phone"
@@ -152,10 +165,15 @@
                         </div>
                     </div>
                     <div class="row form-group">
-                        <label for="inputdescription" class="col-sm-2 control-label">Address</label>
+                        <label for="inputdescription" class="col-sm-2 control-label">Job Title</label>
                         <div class="col-sm-8">
-                            <input type="text" required class="form-control" placeholder="Address" name="address"
-                                required [(ngModel)]="curr_user.address">
+                                <select required class="form-control" placeholder="Job Title" name="jtitle"
+                                required [(ngModel)]="curr_user.jobTitle" >
+                                <option value="Owner" *ngIf="!(curt_user.jobTitle=='Manager')">Owner</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Operations">Operations</option>
+                                <option value="Manager">Manager</option>
+                                </select>
                         </div>
                     </div>
                     <div class="row form-group">
@@ -186,14 +204,14 @@
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
-                <h4 class="modal-title" id="myModalLabel">تحذير</h4>
+                <h4 class="modal-title" id="myModalLabel">Warning</h4>
             </div>
             <div class="modal-body">
-                هل انت متأكد من حذف هذا ؟
+                You sure !?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" id="cancleModal" data-dismiss="modal">الغاء</button>
-                <button type="button" class="btn btn-danger" (click)="deleteuser()">حذف</button>
+                <button type="button" class="btn btn-default" id="cancleModal" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="deleteuser()">Delete</button>
             </div>
         </div>
     </div>

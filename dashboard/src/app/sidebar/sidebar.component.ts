@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery';
 
-declare const $: any;
+
 
 declare interface RouteInfo {
   path: string;
@@ -35,11 +36,12 @@ export class SidebarComponent implements OnInit {
     localStorage.removeItem('current_user');
     window.location.href = '';
   }
-  isMobileMenu() {
+  setBck(event){
+    $('a.nav-link.menu-item').css('background','#f8f9fa');
+    $('a.nav-link.menu-item').css('color','black');
+    $(event).css('background','#a75a61');
+    $(event).css('color','white');
+  }
 
-    // if ($(window).width() > 991) {
-    //   return false;
-    // }
-    // return true;
-  };
+
 }

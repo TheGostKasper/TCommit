@@ -30,6 +30,7 @@ export class HotelComponent implements OnInit {
     }
     curr_hotel = { _id: '', ...this.obj_glob }
     hotel = { ...this.obj_glob }
+    glob_user = { email: '', password: '' }
 
     p: Number = 1;
 
@@ -38,6 +39,7 @@ export class HotelComponent implements OnInit {
 
     ngOnInit() {
         this.gethotels();
+        this.glob_user = JSON.parse(localStorage.getItem('current_user'));
     }
 
     gethotels() {
@@ -111,13 +113,12 @@ export class HotelComponent implements OnInit {
         let arr_filter = this.hotels;
         this.f_hotels = arr_filter;
 
+        
         if (this.para_glob.name !== '')
-            this.f_hotels = arr_filter.filter(sol => sol.name.includes(this.para_glob.name));
+            this.f_hotels = arr_filter.filter(sol => sol.name.toLowerCase().includes(this.para_glob.name.toLowerCase()));
         if (this.para_glob.country !== '')
-            this.f_hotels = arr_filter.filter(sol => sol.country.includes(this.para_glob.country));
+            this.f_hotels = arr_filter.filter(sol => sol.country.toLowerCase().includes(this.para_glob.country.toLowerCase()));
         if (this.para_glob.city !== '')
-            this.f_hotels = arr_filter.filter(sol => sol.city.includes(this.para_glob.city));
-        if (this.para_glob.price_night !== 0 && this.para_glob.price_night !== null)
-            this.f_hotels = arr_filter.filter(sol => sol.price_night === this.para_glob.price_night);
+            this.f_hotels = arr_filter.filter(sol => sol.city.toLowerCase().includes(this.para_glob.city.toLowerCase()));
     }
 }

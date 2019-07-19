@@ -4,14 +4,20 @@ import { LandpageComponent } from './landpage/app.landpage';
 import { ResultsComponent } from './results/app.results';
 import { ProfileComponent } from './profile/app.profile';
 import { ReservationComponent } from './reservation/app.reservation';
+import { ConfirmReservationComponent } from './confirmReservation/app.confirmReservation';
+import { TermsComponent } from './terms/app.terms';
+import { GuestsComponent } from './guests/app.guests';
 
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: LandpageComponent },
     { path: 'results', component: ResultsComponent },
+    { path: 'terms', component: TermsComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'reservation/:id', component: ReservationComponent },
+    { path: 'reservation/guests/:id', component: GuestsComponent },
+    { path: 'confirm/reservation/:email', component: ConfirmReservationComponent },
     // implement notfound page later
     { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

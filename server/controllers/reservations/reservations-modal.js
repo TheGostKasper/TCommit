@@ -9,12 +9,22 @@ var reservationSchema = new Schema({
     phone:String,
     cardnumber:String,
     cvv:String,
-    expiration:Date,
+    expiration:String,
     country:String,
     city:String,
+    cardType:String,
     check_in:Date,
     check_out:Date,
-    status: Boolean,
+    noNight:String,
+    noRooms:String,
+    guests:Array,
+    roomType:Number,
+    status: String,
+    days:Number,
+    modified:Boolean,
+    hotelName:String,
+    price_night:String,
+    billing_address:String,
     room: { type: mongoose.Schema.Types.ObjectId, required: false, ref:'Room' },
     hotel: { type: mongoose.Schema.Types.ObjectId, required: false, ref:'Hotel' },
     created_at: { type: Date, required: false },
@@ -24,7 +34,7 @@ reservationSchema.pre('save', (next) => {
     var currentDate = new Date();
     this.updated_at = currentDate;
     if (!this.created_at)
-        this.created_at = currentDate;
+        this.created_at = currentDate; 
 
     next();
 });

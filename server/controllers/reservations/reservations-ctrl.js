@@ -19,6 +19,14 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/confirm/reservations/:email', (req, res) => {
+        getReservationsAsync({ email: req.params.email }).then(data => {
+            res.send({ data: data, message: "Reservations found" });
+        }).catch(err => {
+            res.send({ data: null, err: err });
+        });
+    });
+
     app.get('/api/reservations/hotel/:id', (req, res) => {
         getReservationsAsync({ hotel: req.params.id }).then(data => {
             res.send({ data: data, message: "Reservationss found" });

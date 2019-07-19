@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/app.authentication';
 import { Encryption } from '../services/encryption';
 import { CRUDService } from '../services/app.crud';
 import { Router } from '@angular/router';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'app-landpage',
@@ -13,16 +14,14 @@ export class LandpageComponent implements OnInit {
     user: any = {
         email: '', password: ''
     };
+    display='hide'
     srch: any = {
-        hotel: '',
-        room: 0,
-        adults: 0,
-        childerens: 0,
+        hotel: '', room: 1,type: 1
     }
     visib = true
     assestsUrl = './../../assets/images/cmt'
     cities = [
-        { url: `${this.assestsUrl}/squares/london.jpg`, name: 'London' },
+        { url: `${this.assestsUrl}/squares/london.jpg`, name: 'Excel London' },
         { url: `${this.assestsUrl}/squares/2.Port de versailles.jpg`, name: 'Port de versailles' },
         { url: `${this.assestsUrl}/squares/3.LVCC.jpg`, name: 'LVCC' },
         { url: `${this.assestsUrl}/squares/4.Amsterdam..jpg`, name: 'Amsterdam' },
@@ -33,13 +32,23 @@ export class LandpageComponent implements OnInit {
         { url: `${this.assestsUrl}/squares/9San diego.jpg`, name: 'San diego' },
         { url: `${this.assestsUrl}/squares/10 sands las vegas.jpg`, name: 'Sands las vegas' },
     ]
-    constructor(private authenticationService: AuthenticationService, 
-        private encryption: Encryption, private crudService:CRUDService,private router: Router) { }
+    constructor(private authenticationService: AuthenticationService,
+        private encryption: Encryption, private crudService: CRUDService, private router: Router) { }
     ngOnInit() {
     }
 
+    manage(user) {
+        const _user = { ...user };
+        this.crudService.post({
+            url: 'api/reservations/manage',
+            body: {}
+        }).subscribe((res: any) => {
 
-login(user) {
+            console.log(res.data);
+        });
+    }
+
+    login(user) {
         const _user = { ...user };
         _user.password = this.encryption.b64EncodeUnicode(user.password);
         this.authenticationService.logIn(_user).subscribe((res: any) => {
@@ -70,8 +79,33 @@ login(user) {
     }
 
     submitSearch(srch) {
-        localStorage.setItem('dataSearch',JSON.stringify(srch));
+        localStorage.setItem('dataSearch', JSON.stringify(srch));
         this.router.navigate(['/results']);
-        
+
+    }
+    hotels = []
+    
+    searchHotelNames() {
+        if(this.srch.hotel.length>0){
+            this.display='show';
+            this.crudService.get({
+                url: `api/hotel/searchName/${this.srch.hotel}`,
+            }).subscribe((res: any) => {
+                if (res.data == null) {
+                    alert(res.message);
+                } else {
+                    this.hotels=res.data;
+                    this.display='show';
+                }
+            });
+        }else{
+        this.display='hide';
+        }
+      
+    }
+
+    hideResults(hotel){
+        this.display='hide';
+        this.srch.hotel=hotel.name;
     }
 }

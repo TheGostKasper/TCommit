@@ -4,6 +4,7 @@ const User = require('./../user/user-modal');
 module.exports = function (app) {
     app.post('/login', (req, res) => {
         var _body = req.body;
+        console.log(_body.email)
         login(_body.type, { email: _body.email, password: _body.password })
             .then(data => {
                 if (data === null) {
@@ -16,6 +17,8 @@ module.exports = function (app) {
                 return res.json(displayError());
             });
     }); 
+    
+    
 
     app.post('/signUp', (req, res) => {
         addUserAsync(req.body).then((data) => { 

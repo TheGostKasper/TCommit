@@ -48,3 +48,6 @@
     left: unset;
     text-align: right;
 }
+#navbarSupportedContent{
+    margin-left: 10px;
+}

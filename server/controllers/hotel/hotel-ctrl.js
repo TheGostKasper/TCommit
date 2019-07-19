@@ -9,10 +9,10 @@ module.exports = function (app) {
         getPagesAsync({
             query: {
                 $or: [
-                    { $or: [{ country: { "$regex": `${req.body.hotel}`, "$options": "i" } }] },
+                    { $or: [{ name: { "$regex": `${req.body.hotel}`, "$options": "i" } }] },
                     //  { $or: [{ country: { "$regex": `${req.body.hotel}`, "$options": "i" } }] },
                 ]
-            }, page: req.body.page, pageCount: req.body.pageCount, check_in: req.body.check_in, check_out: req.body.check_out
+            }, page: req.body.page, pageCount: req.body.pageCount
         }).then(data => {
             res.send({ data: data, message: "Hotel found" });
         }).catch(err => {
@@ -20,6 +20,18 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/api/hotel/searchName/:name', (req, res) => {
+        
+        getSearchedHotelAsync({
+            $and: [
+                { $or: [{ name: { "$regex": `^${req.params.name}`} }] }
+            ]
+        } ).then(data => {
+            res.send({ data: data, message: "Hotel found" });
+        }).catch(err => {
+            res.send({ data: null, err: err });
+        });
+    })
 
     app.post('/api/hotel/names', (req, res) => {
         searchNames({
@@ -258,6 +270,15 @@ module.exports = function (app) {
             return error;
         }
     }
+
+    async function getSearchedHotelAsync(option) {
+        try {
+            return await Hotel.find(option).limit(5).select('name _id').exec();
+        } catch (error) {
+            return error;
+        }
+    }
+
     async function searchNames(option) {
         try {
             return await Hotel
@@ -271,20 +292,15 @@ module.exports = function (app) {
 
         }
     }
+
+    
     async function getPagesAsync(option) {
         try {
-            let c_in = option.check_in;
-            let c_out = option.check_out;
-            
-            // console.log(new Date(c_in.year, c_in.month, c_in.day).toISOString());
-            // console.log(new Date(c_out.year, c_out.month, c_out.day).toISOString());
-
+           
             return await Hotel
                 .find(option.query)
                 .skip((option.page - 1) * option.pageCount)
                 .limit(option.pageCount)
-                .where('check_in').gte(new Date(c_in.year, c_in.month-1, c_in.day).toISOString())
-                .where('check_out').lte(new Date(c_out.year, c_out.month, c_out.day).toISOString())
                 //.select('name country')
                 .exec();
         } catch (error) {

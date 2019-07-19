@@ -21,8 +21,8 @@
             <td>{{room.children}}</td>
             <td>{{room.bed_no}}</td>
             <td>{{room.price_night}}</td>
-            <td>
-                <div class="btn-group">
+            <td >
+                <div class="btn-group" *ngIf="!current_user.jobTitle=='Manager'">
                     <button type="submit" class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-room"
                         (click)="curr_room=room">
                         <span class="fa fa-edit" aria-hidden="true"></span>

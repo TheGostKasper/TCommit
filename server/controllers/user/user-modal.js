@@ -9,13 +9,16 @@ var userSchema = new Schema({
     type_id: { type: String, required: false }, // Employee , supplier , customer , ....
     availability: Boolean,
     images: { type: String, required: false },
+    code: { type: String, required: false },
+    type:String,
     // extra: {
     //     transactions: {
     //         type: [{ hotel_id: String, comment: String, created_at: Date ,trans_type:String , action:String}], required: false
     //     }
     // },
     age: Number,
-    address: { type: String, required: false },    
+    address: { type: String, required: false },
+    jobTitle: { type: String, required: false },
     location: { type: { lat: String, lng: String }, required: false },
     created_at: Date,
     updated_at: Date,

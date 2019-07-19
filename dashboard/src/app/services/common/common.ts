@@ -44,7 +44,7 @@ export class CommonFunc {
         else {
             console.log(res.message);
             callback(res);
-            alert(res.message);
+           // alert(res.message);
         }
     }
 }

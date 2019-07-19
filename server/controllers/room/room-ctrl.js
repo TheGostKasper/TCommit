@@ -9,7 +9,7 @@ module.exports = function (app) {
                 res.send({ data: null, err: err });
             });
         }).catch(err => console.log(err));
-    });
+    }); 
     app.get('/api/room', (req, res) => {
         getRoomAsync().then(data => {
             res.send({ data: data, message: "Room found" });
