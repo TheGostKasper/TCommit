@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class CRUDService {
-    ApiUrl = 'http://localhost:8080';
+    ApiUrl = 'http://167.71.200.18:8080';
     // 'http://iisnode.local.com';
     constructor(
         private http: HttpClient
