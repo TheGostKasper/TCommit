@@ -27,7 +27,7 @@ module.exports = function (app) {
             }).catch(err => {
                 res.send(displayError(message = err));
             });
-        }).catch(err => console.log(err));
+        }).catch(err => res.send(displayError(message = err)));
     })
 
     // get token
