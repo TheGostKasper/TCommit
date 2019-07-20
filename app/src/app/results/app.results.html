@@ -32,7 +32,7 @@
                 <h2>No results found ! Don't wait until it's too late!</h2>
             </div>
             <ul class="hotels">
-                <li class="list-hotels" *ngFor="let hotel of hotels | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
+                <li class="list-hotels" *ngFor="let hotel of hotels | paginate: { itemsPerPage: 10, currentPage: page } | slice:0:80 as total; index as i;">
                     <div class="ctor">
                         <div class="media">
                             <span class="media-left">
@@ -56,7 +56,7 @@
                     </div>
                 </li> 
             </ul>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
         </div>
     </div>
 

@@ -10,9 +10,9 @@ import { CRUDService } from '../services/app.crud';
 })
 export class ProfileComponent implements OnInit {
  
-  selectedImg = {}
+  selectedImg = {url:''}
   reserve={phone:"",email:"",hotel:""}
-  hotel={_id:"",extra:{images:[]}};
+  hotel={_id:"",name:'',rate:5,address:'',price_night:15,describtion:'',extra:{information:[],features:[],images:[]}};
 
   changeImg(city) {
     this.selectedImg = city;

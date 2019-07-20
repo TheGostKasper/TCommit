@@ -534,7 +534,43 @@ div.modal-body .form-row{
     }
     
 }
+@media (max-width: 500px){
+    nav.bg-trans{
+        padding:2px;
+    }
+    .mr40{
+        margin-right: 3rem;
+    }
 
+    .mrg70 {
+        font-size: 18px;
+        padding: 0 0px;
+        text-align: -webkit-center;
+    }
+    .wh8{
+        height: 185px;
+            margin-bottom: 0px; 
+    }
+    .carousel-caption {
+        left: 1%;
+        right: 1%;
+        height: 79%;
+        bottom: 104px;
+    }
+    form.pd-10 {
+        padding: 15px;
+    }
+    .bg-transMubte {
+        padding: 0px;
+        color: white;
+        background: #0a0909de;
+    }
+    div.logo > div.cities {
+        display: inline-block;
+        margin: 8px;
+    }
+    
+}
 
 @keyframes blink {
     from, to {

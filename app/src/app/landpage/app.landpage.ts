@@ -85,7 +85,7 @@ export class LandpageComponent implements OnInit {
     }
     hotels = []
     
-    searchHotelNames() {
+    searchHotelNames(evt) {
         if(this.srch.hotel.length>0){
             this.display='show';
             this.crudService.get({
