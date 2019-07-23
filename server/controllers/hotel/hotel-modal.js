@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var hotelSchema = new Schema({
     email: { type: String, required: true },
-    phone: { type: String, required: true },
+    phone: { type: String, required: false },
     password: { type: String, required: false },
     name: { type: String, required: true },
     country: { type: String, required: true },

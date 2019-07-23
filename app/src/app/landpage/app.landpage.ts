@@ -22,15 +22,15 @@ export class LandpageComponent implements OnInit {
     assestsUrl = './../../assets/images/cmt'
     cities = [
         { url: `${this.assestsUrl}/squares/london.jpg`, name: 'Excel London' },
-        { url: `${this.assestsUrl}/squares/2.Port de versailles.jpg`, name: 'Port de versailles' },
+        { url: `${this.assestsUrl}/squares/2.Port de versailles.jpg`, name: 'Port De Versailles' },
         { url: `${this.assestsUrl}/squares/3.LVCC.jpg`, name: 'LVCC' },
         { url: `${this.assestsUrl}/squares/4.Amsterdam..jpg`, name: 'Amsterdam' },
         { url: `${this.assestsUrl}/squares/5.Orange Orlando.jpg`, name: 'Orange Orlando' },
-        { url: `${this.assestsUrl}/squares/6.Muncchen.jpg`, name: 'Muncchen' },
+        { url: `${this.assestsUrl}/squares/6.Muncchen.jpg`, name: 'münchen' },
         { url: `${this.assestsUrl}/squares/7.Moscone San Fransisco.jpg`, name: 'Moscone San Fransisco' },
         { url: `${this.assestsUrl}/squares/8.Messe Berlin.jpg`, name: 'Messe Berlin' },
         { url: `${this.assestsUrl}/squares/9San diego.jpg`, name: 'San diego' },
-        { url: `${this.assestsUrl}/squares/10 sands las vegas.jpg`, name: 'Sands las vegas' },
+        { url: `${this.assestsUrl}/squares/10 sands las vegas.jpg`, name: 'Sands Las Vegas' },
     ]
     constructor(private authenticationService: AuthenticationService,
         private encryption: Encryption, private crudService: CRUDService, private router: Router) { }
