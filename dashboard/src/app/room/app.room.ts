@@ -27,7 +27,7 @@ export class RoomComponent implements OnInit {
         id: ''
     }
     h_id
-    glob_user={}
+    glob_user={jobTitle:''}
     constructor(private service: CRUDService,private cmn:CommonFunc, private crudService: CRUDService) { }
 
     ngOnInit(): void {
@@ -45,6 +45,7 @@ export class RoomComponent implements OnInit {
         this.crudService.get({
             url: `api/room/hotel/${_id}`,
         }).subscribe((res: any) => {
+            console.log(res.data);
             this.all_rooms = res.data;
         });
     }

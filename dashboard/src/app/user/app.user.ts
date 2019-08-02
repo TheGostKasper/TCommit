@@ -27,7 +27,7 @@ export class UserComponent implements OnInit {
     ngOnInit() {
         this.getUsers();
         this.curt_user = JSON.parse(localStorage.getItem('current_user'));
-        var role=(this.curt_user.jobTitle=="Owner")?true:(this.curt_user.jobTitle=="Manager")?true:false;
+        var role=(this.curt_user.jobTitle=="Owner" || this.curt_user.jobTitle=="Manager")?true:false;
         if(!role){
             window.location.href='/reservations'
         }

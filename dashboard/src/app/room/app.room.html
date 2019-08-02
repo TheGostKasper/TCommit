@@ -14,15 +14,15 @@
         <tr *ngIf="all_rooms.length===0">
             <td colspan="8"> No available rooms , try add some and get back !</td>
         </tr>
-        <tr *ngFor="let room of all_rooms | paginate: { itemsPerPage: 10, currentPage: p } | slice:0:80 as total; index as i;">
-            <td>{{i+1}}</td>
+        <tr *ngFor="let room of all_rooms | paginate: { itemsPerPage: 10, currentPage: p } ">
+            <td></td>
             <td>{{room.name}}</td>
             <td>{{room.adults}}</td>
             <td>{{room.children}}</td>
             <td>{{room.bed_no}}</td>
             <td>{{room.price_night}}</td>
             <td >
-                <div class="btn-group" *ngIf="!current_user.jobTitle=='Manager'">
+                <div class="btn-group" *ngIf="glob_user.jobTitle=='Manager' || glob_user.jobTitle=='Owner'">
                     <button type="submit" class="bs-margin btn btn-info" data-toggle="modal" data-target=".bs-edit-room"
                         (click)="curr_room=room">
                         <span class="fa fa-edit" aria-hidden="true"></span>
