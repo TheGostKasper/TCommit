@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   token: boolean;
 
   constructor(public location: Location) {
-    this.token = (localStorage.getItem('token')) ? true : false;
+    this.token = (localStorage.getItem('token_dash')) ? true : false;
   }
   ngOnInit() {
   }

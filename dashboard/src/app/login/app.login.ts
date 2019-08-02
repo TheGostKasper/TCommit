@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
             if (res.data == null) {
                 alert(res.message);
             } else {
-                localStorage.setItem('token', res.token);
+                localStorage.setItem('token_dash', res.token);
                 localStorage.setItem('current_user', JSON.stringify(res.data));
                  window.location.href = '';
             }
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
                 alert(res.message);
                 this.login(_user);
             } else {
-                localStorage.setItem('token', res.token);
+                localStorage.setItem('token_dash', res.token);
                 localStorage.setItem('current_user', res.data);
                 window.location.href = '';
             }
