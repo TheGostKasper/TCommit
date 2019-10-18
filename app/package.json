@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 167.71.200.18 --port 5000",
-    "build": "ng build --host 167.71.200.18 --prod",
+    "start": "ng serve --host 67.205.129.78 --port 5000",
+    "build": "ng build --host 67.205.129.78 --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
