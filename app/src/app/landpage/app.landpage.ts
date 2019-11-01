@@ -26,7 +26,7 @@ export class LandpageComponent implements OnInit {
         { url: `${this.assestsUrl}/squares/3.LVCC.jpg`, name: 'LVCC' },
         { url: `${this.assestsUrl}/squares/4.Amsterdam..jpg`, name: 'Amsterdam' },
         { url: `${this.assestsUrl}/squares/5.Orange Orlando.jpg`, name: 'Orange Orlando' },
-        { url: `${this.assestsUrl}/squares/6.Muncchen.jpg`, name: 'münchen' },
+        { url: `${this.assestsUrl}/squares/6.Muncchen.jpg`, name: 'München' },
         { url: `${this.assestsUrl}/squares/7.Moscone San Fransisco.jpg`, name: 'Moscone San Fransisco' },
         { url: `${this.assestsUrl}/squares/8.Messe Berlin.jpg`, name: 'Messe Berlin' },
         { url: `${this.assestsUrl}/squares/9San diego.jpg`, name: 'San diego' },

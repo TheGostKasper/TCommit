@@ -48,9 +48,6 @@ export class SendEmailComponent implements OnInit {
     }).subscribe((res: any) => {
       if (res.data != null)
         alert('sent Successfully');
-
-        alert('sent Successfully');
-
     });
   }
 
