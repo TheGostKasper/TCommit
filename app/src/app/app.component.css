@@ -262,7 +262,7 @@ p.txt-center{
 .tcp{
     padding: 10px;
     text-align: center;
-    Z-INDEX: -1;
+    /* Z-INDEX: -1; */
 }
 .slt{
     font-size: 12px;
