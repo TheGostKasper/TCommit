@@ -43,8 +43,6 @@ export class LandpageComponent implements OnInit {
             url: 'api/reservations/manage',
             body: {}
         }).subscribe((res: any) => {
-
-            console.log(res.data);
         });
     }
 

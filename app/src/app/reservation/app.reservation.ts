@@ -40,7 +40,6 @@ export class ReservationComponent implements OnInit {
       body: reservation
     }).subscribe((res: any) => {
       if (res.data != null) {
-        // console.log(res.data);
         this.router.navigate([`reservation/guests/${this.reservation._id}`]); 
     }
     else alert('Something went wrong , check up later');

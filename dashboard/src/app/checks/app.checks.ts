@@ -35,7 +35,6 @@ export class ChecksComponent implements OnInit {
         this.all_checks = glob.extra.checks;
     }
     AddChecks(info) { 
-        console.log(info);
         this.crudService.post({
             url: `api/hotel/checks/${this.curr_hotel._id}`,
             body: {

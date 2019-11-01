@@ -63,7 +63,6 @@ export class HotelComponent implements OnInit {
             body: _hotel
         }).subscribe((res: any) => {
             this.cmn.displayError(res, _ => {
-                console.log(res.data)
                 this.f_hotels.push(res.data[0]);
                 document.getElementById('cancleAddition').click();
             })

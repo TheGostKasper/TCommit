@@ -45,7 +45,6 @@ export class RoomComponent implements OnInit {
         this.crudService.get({
             url: `api/room/hotel/${_id}`,
         }).subscribe((res: any) => {
-            console.log(res.data);
             this.all_rooms = res.data;
         });
     }

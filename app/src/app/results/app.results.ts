@@ -49,7 +49,6 @@ export class ResultsComponent implements OnInit {
       body: { hotel: srch.hotel, page: this.page, pageCount: 100}
     }).subscribe((res: any) => {
       this.hotels = res.data;
-      console.log(srch);
     });
 
     this.counter(5);
@@ -64,20 +63,15 @@ export class ResultsComponent implements OnInit {
       body: { hotel: this.hotelSearch, page: this.page, pageCount: 100, p_from: this.minValue, p_to: this.maxValue, rate: this.rate }
     }).subscribe((res: any) => {
       this.hotels = res.data;
-      console.log(res.data);
     });
   }
 
   confirmPHF(){
-    // console.log(this.reserve)
-    // console.log(this.currResv)
-
     this.crudService.post({
       url: 'api/reservations',
       body: { email: this.reserve.email, phone: this.reserve.phone, hotel:this.currResv._id}
     }).subscribe((res: any) => {
       alert("Your Reservation being proccessed and we will call you within 24H ");
-      //console.log(res.data);
     });
   }
   counter(length) {

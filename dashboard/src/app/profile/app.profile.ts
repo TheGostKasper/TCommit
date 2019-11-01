@@ -54,7 +54,6 @@ export class ProfileComponent implements OnInit {
                 let rs = res.data[0];
                 this.curr_hotel = { ...rs };
                 this.hotel = { ...rs };
-                console.log(this.curr_hotel);
             });
     }
 
@@ -63,7 +62,9 @@ export class ProfileComponent implements OnInit {
             url: `api/hotel/${this.hotel._id}`,
             body: obj
         }).subscribe((res: any) => {
-            this.cmn.displayError(res, _ => { })
+            this.cmn.displayError(res, _ => {
+                alert('Updated successfully');
+             })
         });
     }
     uploadImage(obj) {

@@ -151,7 +151,6 @@ export class reservationsComponent implements OnInit {
             } else {
                 alert('something went wrong , try agian later');
             }
-            //console.log(res.data);
         });
     }
 
@@ -179,7 +178,6 @@ export class reservationsComponent implements OnInit {
 
         let days = (twoSeconds - difSeconds) / 86400;
         reservation.days = days;
-        console.log(reservation.status);
         this.crudService.put({
             url: `api/reservations/${reservation._id}`,
             body: {

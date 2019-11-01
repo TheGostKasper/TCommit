@@ -32,15 +32,11 @@ export class ProfileComponent implements OnInit {
   }
 
   confirmPHF(){
-    // console.log(this.reserve)
-    // console.log(this.currResv)
-
     this.crudService.post({
       url: 'api/reservations',
       body: { email: this.reserve.email, phone: this.reserve.phone, hotel:this.hotel._id}
     }).subscribe((res: any) => {
       alert("Your Reservation being proccessed and we will call you within 24H ");
-      //console.log(res.data);
     });
   }
 

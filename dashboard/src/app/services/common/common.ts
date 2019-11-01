@@ -42,7 +42,6 @@ export class CommonFunc {
             console.log(res.err);
         }
         else {
-            console.log(res.message);
             callback(res);
            // alert(res.message);
         }
