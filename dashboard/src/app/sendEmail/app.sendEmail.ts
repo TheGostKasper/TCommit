@@ -28,7 +28,9 @@ export class SendEmailComponent implements OnInit {
       })).subscribe((res: any) => {
         if (res.data != null) {
           this.reservation = res.data[0];
-          this.selectedImg = this.reservation.hotel.extra.images[0];
+          this.selectedImg = (this.reservation.hotel.extra) ?
+            this.reservation.hotel.extra.images[0] :
+            { };
         }
         else alert('Something went wrong , check up later');
       });
@@ -52,8 +54,8 @@ export class SendEmailComponent implements OnInit {
   }
 
   counter() {
-    let length = this.reservation.hotel.rate;
-    return new Array(parseInt(length)).fill(length, 0, length);
+    let length = 4;//(this.reservation.hotel)?this.reservation.hotel.rate:3;
+    return new Array(length).fill(length, 0, length);
   }
 
 }

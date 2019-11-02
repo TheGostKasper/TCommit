@@ -5,28 +5,28 @@
         <div class="card-text">
 
             <p>Thanks {{reservation.fullname}}!</p>
-            <p>Your booking in {{reservation.hotel.name}} is confirmed.
-                {{reservation.hotel.name}} is expecting you on 24 January
-                Your payment will be handled by {{reservation.hotel.name}}.</p>
+            <p>Your booking in {{reservation.hotelName}} is confirmed.
+                {{reservation.hotelName}} is expecting you on 24 January
+                Your payment will be handled by {{reservation.hotelName}}.</p>
             <p>
                 The 'Payment' section below has more details
 
                 Make your trip even more special. Get a better room
                 Easily make changes online to all your bookings by creating a password.
             </p>
-            <p>Check this link for more info  <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">http://167.71.200.18:5000/reservation/{{reservation._id}}</a></p>
+            <p>Check this link for more info  <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">YOUR RESERVATION</a></p>
         </div>
         <div class="card-body">
             <div class="bookingDetail mar0t">
                 <div class="hotel-header">
-                    <h3>{{reservation.hotel.name}}</h3>
+                    <h3>{{reservation.hotelName}}</h3>
                     <p class="rating">
                         <span class="istar" *ngFor="let rt of counter()"><i class="fa fa-star"></i></span>
                     </p>
-                    <span class="location"><i class="fa fa-map-marker"></i>{{reservation.hotel.address}}</span>
-                    <span class="location"><i class="fa fa-phone"></i>{{reservation.hotel.phone}}</span>
+                    <span class="location">NO Rooms: {{reservation.noRooms}}</span>
+                    <span class="location">Price-night: {{reservation.price_night}}</span>
                 </div>
-                <img src="{{selectedImg.url}}" class="img-center img-selected" />
+                <img *ngIf="selectedImg.url" src="{{selectedImg.url}}" class="img-center img-selected" />
                 <div class="hotel-check">
                     <p><strong>Check-in</strong> {{reservation.check_in |date:'dd/MM/yyyy'}}</p>
                     <p><strong>Check-out</strong> {{reservation.check_out |date:'dd/MM/yyyy'}}</p>
@@ -34,7 +34,7 @@
                 <br />
             </div>
         </div>
-        <div class="card">
+        <!-- <div class="card">
             <div class="card-header">Room(s) details</div>
             <div class="card-body">
                 <div class="rmh">
@@ -52,12 +52,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="card-footer">
-        <a href="#" class="btn btn-primary">Modify You reservation</a>
-        <a href="#" class="btn btn-primary">Cancel Your reservation</a>
+        <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">Modify You reservation</a>
+        <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">Cancel Your reservation</a>
     </div>
 
 </div>
