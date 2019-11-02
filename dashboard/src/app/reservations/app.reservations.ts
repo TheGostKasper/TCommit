@@ -143,14 +143,15 @@ export class reservationsComponent implements OnInit {
             body: rsv
         }).subscribe((res: any) => {
             if (res.data != null) {
-                this.all_reservations.push(res.data[0]);
+                const dt=res.data[0];
+                this.all_reservations.push(dt);
                
                 $('#addModal').click();
                 this.reservation = {
                     firstName: '', lastName: '', email: '', phone: '', creditcard: '',
                     conty: '', city: '', fullname: '', cvv: '', expiration: new Date(), hotelName: '', days: 0, price_night: '', noRooms: 0
                 };
-                this.router.navigate([`/email/${this.reservation._id}`]);
+                this.router.navigate([`/email/${dt._id}`]);
             } else {
                 alert('something went wrong , try agian later');
             }

@@ -76,13 +76,13 @@ module.exports = function (app) {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'reservations@summitstravel.com',
-                    pass: 'summit. 9'
+                    user: 'thegostkasper@gmail.com',
+                    pass: 'El7aby_9'
                 }
             });
 
             var mailOptions = {
-                from: 'reservations@summitstravel.com',
+                from: 'thegostkasper@gmail.com',
                 to: req.body.toEmail,
                 subject: 'Email Confirmation',
                 html: req.body.bodyEmail
@@ -90,9 +90,9 @@ module.exports = function (app) {
 
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
-                    console.log(error);
+                    res.send({ data: null, err: error });
                 } else {
-                    console.log('Email sent: ' + info.response);
+                    res.send({ data: info.response });
                 }
             });
         } catch (error) {
