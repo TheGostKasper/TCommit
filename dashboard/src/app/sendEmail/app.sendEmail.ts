@@ -28,7 +28,7 @@ export class SendEmailComponent implements OnInit {
       })).subscribe((res: any) => {
         if (res.data != null) {
           this.reservation = res.data[0];
-          this.selectedImg = (this.reservation.hotel.extra) ?
+          this.selectedImg = (this.reservation.hotel) ?
             this.reservation.hotel.extra.images[0] :
             { };
         }
