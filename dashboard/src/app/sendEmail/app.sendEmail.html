@@ -10,11 +10,10 @@
                 Your payment will be handled by {{reservation.hotelName}}.</p>
             <p>
                 The 'Payment' section below has more details
-
                 Make your trip even more special. Get a better room
                 Easily make changes online to all your bookings by creating a password.
             </p>
-            <p>Check this link for more info  <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">YOUR RESERVATION</a></p>
+            <p>Check this link for more info  <a href="http://67.205.129.78:5000/reservation/{{reservation._id}}" class="btn btn-primary">YOUR RESERVATION</a></p>
         </div>
         <div class="card-body">
             <div class="bookingDetail mar0t">
@@ -54,11 +53,9 @@
             </div>
         </div> -->
     </div>
-
     <div class="card-footer">
-        <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">Modify You reservation</a>
-        <a href="http://summitstravel.com/reservation/{{reservation._id}}" class="btn btn-primary">Cancel Your reservation</a>
+        <a href="http://67.205.129.78:5000/reservation/{{reservation._id}}" class="btn btn-primary">Modify You reservation</a>
+        <a href="http://67.205.129.78:5000/reservation/{{reservation._id}}" class="btn btn-primary">Cancel Your reservation</a>
     </div>
-
 </div>
 <button class="btn btn-primary" (click)="submitEmail()">Send Email</button>
