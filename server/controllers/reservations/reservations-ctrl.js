@@ -76,15 +76,15 @@ module.exports = function (app) {
             var transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: req.body.toEmail,
-                    pass: req.body.password
+                    user: 'reservations@summitstravel.com',
+                    pass: 'summit. 9'
                 }
             });
 
             var mailOptions = {
-                from: req.body.toEmail,
+                from: 'reservations@summitstravel.com',
                 to: req.body.toEmail,
-                subject: 'Email Confirmation ',
+                subject: 'Email Confirmation',
                 html: req.body.bodyEmail
             };
 
