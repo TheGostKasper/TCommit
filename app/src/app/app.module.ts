@@ -41,6 +41,7 @@ import { NavbarModule } from './shared/navbar/navbar.module';
 import { FooterModule } from './shared/footer/footer.module';
 import { SidebarModule } from './sidebar/sidebar.module';
 import { AboutUsComponent } from './aboutUs/app.aboutUs';
+import { ContactUsComponent } from './contactUs/app.contactUs';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
@@ -56,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         GuestsComponent,
         TermsComponent,
         AboutUsComponent,
+        ContactUsComponent,
         ConfirmReservationComponent
   ],
   imports: [

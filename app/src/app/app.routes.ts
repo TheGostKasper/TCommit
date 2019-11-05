@@ -8,6 +8,7 @@ import { ConfirmReservationComponent } from './confirmReservation/app.confirmRes
 import { TermsComponent } from './terms/app.terms';
 import { GuestsComponent } from './guests/app.guests';
 import { AboutUsComponent } from './aboutUs/app.aboutUs';
+import { ContactUsComponent } from './contactUs/app.contactUs';
 
 
 const routes: Routes = [
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'results', component: ResultsComponent },
     { path: 'terms', component: TermsComponent },
     { path: 'aboutus', component: AboutUsComponent },
+    { path: 'contactus', component: ContactUsComponent },
     { path: 'profile/:id', component: ProfileComponent },
     { path: 'reservation/:id', component: ReservationComponent },
     { path: 'reservation/guests/:id', component: GuestsComponent },

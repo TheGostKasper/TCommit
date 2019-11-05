@@ -2,10 +2,11 @@
 
     <div class="app-container">
         <nav class="{{scrClass}}">
-            
+
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <div class="navbar-nav mr-auto">
-                    <select class="nav-item dropdown btnSelect" (change)="switchLanguage()" name="srLang" [(ngModel)]="lang"> 
+                    <select class="nav-item dropdown btnSelect" (change)="switchLanguage()" name="srLang"
+                        [(ngModel)]="lang">
                         <option class="selectOpt" value="en">English</option>
                         <option class="selectOpt" value="fr">French</option>
                         <option class="selectOpt" value="sp">Spanish</option>
@@ -14,140 +15,145 @@
                         <!-- <option class="selectOpt" value="ch">Chinees</option> -->
                     </select>
                 </div>
-            <div>
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item mr40">
-                        <span class="pointer" data-toggle="modal" *ngIf="!token" data-target=".bs-manage" > {{ 'Manage' | translate }}</span>
-                        <span class="pointer" *ngIf="token" [routerLink]="linkManage"> {{ 'Manage' | translate }}</span>
-                    </li>
-                    <li></li>
-                    <li class="nav-item" *ngIf="!token">
-                        <span class="pointer pd10" data-toggle="modal" data-target=".bs-signin">{{ 'SIn' | translate }}</span>
-                        |
-                        <span class="pointer pd10" data-toggle="modal" data-target=".bs-signup">{{ 'Register' | translate }}</span>
-                    </li>
-                    <li class="nav-item" *ngIf="token">
-                        <span class="pointer pd10" [routerLink]="['home']">Hello {{curr_user.name}}</span> |
-                        <span class="pointer pd10" (click)="SignOut()">{{ 'Sout' | translate }}</span>
-                    </li>
-                </ul>
-            </div>
+                <div>
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item mr40">
+                            <span class="pointer" data-toggle="modal" *ngIf="!token" data-target=".bs-manage">
+                                {{ 'Manage' | translate }}</span>
+                            <span class="pointer" *ngIf="token" [routerLink]="linkManage">
+                                {{ 'Manage' | translate }}</span>
+                        </li>
+                        <li></li>
+                        <li class="nav-item" *ngIf="!token">
+                            <span class="pointer pd10" data-toggle="modal"
+                                data-target=".bs-signin">{{ 'SIn' | translate }}</span>
+                            |
+                            <span class="pointer pd10" data-toggle="modal"
+                                data-target=".bs-signup">{{ 'Register' | translate }}</span>
+                        </li>
+                        <li class="nav-item" *ngIf="token">
+                            <span class="pointer pd10" [routerLink]="['home']">Hello {{curr_user.name}}</span> |
+                            <span class="pointer pd10" (click)="SignOut()">{{ 'Sout' | translate }}</span>
+                        </li>
+                    </ul>
+                </div>
 
+            </div>
+        </nav>
+        <router-outlet></router-outlet>
     </div>
-    </nav>
-    <router-outlet></router-outlet>
-</div>
-<div class="footer">
-    <div class="left">
-        <ul class="exul">
-            <li class="pointer" ><a href="/home" class="white">{{ 'Home' | translate }}</a></li>
-            <li class="pointer"><a href="/aboutus" class="white">{{ 'About' | translate }}</a></li>
-            <!-- <li>{{ 'Testimonials' | translate }}</li> -->
-            
-            <li class="pointer"> <a href="/terms" class="white">{{ 'Terms & Conditions' | translate }}</a> </li>
-            <li>{{ 'Contact Us' | translate }}</li>
-        </ul>
+    <div class="footer">
+        <div class="left">
+            <ul class="exul">
+                <li class="pointer"><a href="/home" class="white">{{ 'Home' | translate }}</a></li>
+                <li class="pointer"><a href="/aboutus" class="white">{{ 'About' | translate }}</a></li>
+                <li class="pointer"><a href="/contactus" class="white">{{ 'Contact Us' | translate }}</a></li>
+                <li class="pointer"> <a href="/terms" class="white">{{ 'Terms & Conditions' | translate }}</a> </li>
+            </ul>
+        </div>
+        <div class="right p50">
+            <img src="./../../assets/images/summitLS.png" alt="" class="">
+            <p class="white">©{{ 'rights' | translate }}</p>
+        </div>
     </div>
-    <div class="right p50">
-        <img src="./../../assets/images/summitLS.png" alt="" class="">
-        <p class="white">©{{ 'rights' | translate }}</p>
+
+
+    <div class="modal fade bs-signin" tabIndex="-1" role="dialog" aria-labelledby="bsAddhotel">
+        <form class="form-horizontal" id="signInForm" #signInForm="ngForm" (ngSubmit)="signIn(user)">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signinModal">Sign-in</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <input type="email" required id="email" name="email" [(ngModel)]="user.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <input type="password" minlength="6" class="form-control" name="password" id="password"
+                                placeholder="Password" [(ngModel)]='user.password' required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="signInForm.invalid"
+                                class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</div>
-
-
-<div class="modal fade bs-signin" tabIndex="-1" role="dialog" aria-labelledby="bsAddhotel">
-    <form class="form-horizontal" id="signInForm" #signInForm="ngForm" (ngSubmit)="signIn(user)">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="signinModal">Sign-in</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <input type="email" required id="email" name="email" [(ngModel)]="user.email" required class="form-control"
-                            placeholder="Email">
+    <div class="modal fade bs-signup" tabIndex="-1" role="dialog" aria-labelledby="bssignup">
+        <form class="form-horizontal" id="signUpForm" #signUpForm="ngForm" (ngSubmit)="signUp(user)">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="signinModal">Register</h4>
                     </div>
-                    <div class="form-row">
-                        <input type="password" minlength="6" class="form-control" name="password" id="password" placeholder="Password"
-                            [(ngModel)]='user.password' required>
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <input type="text" required id="name" name="name" [(ngModel)]="user.name" required
+                                class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-row">
+                            <input type="text" required id="phone" name="phone" [(ngModel)]="user.phone" required
+                                class="form-control" placeholder="Phone">
+                        </div>
+                        <div class="form-row">
+                            <input type="email" required id="eemail" name="email" [(ngModel)]="user.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <input type="password" minlength="6" class="form-control" name="password" id="epassword"
+                                [(ngModel)]='user.password' required placeholder="Password">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-group">
-                        <button class="bs-margin btn btn-info" type="submit" [disabled]="signInForm.invalid" class="btn btn-primary">
-                            Submit
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-</div>
-<div class="modal fade bs-signup" tabIndex="-1" role="dialog" aria-labelledby="bssignup">
-    <form class="form-horizontal" id="signUpForm" #signUpForm="ngForm" (ngSubmit)="signUp(user)">
-        <div class="modal-dialog modal-sm" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="signinModal">Register</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <input type="text" required id="name" name="name" [(ngModel)]="user.name" required class="form-control"
-                            placeholder="Name">
-                    </div>
-                    <div class="form-row">
-                        <input type="text" required id="phone" name="phone" [(ngModel)]="user.phone" required class="form-control"
-                            placeholder="Phone">
-                    </div>
-                    <div class="form-row">
-                        <input type="email" required id="eemail" name="email" [(ngModel)]="user.email" required class="form-control"
-                            placeholder="Email">
-                    </div>
-                    <div class="form-row">
-                        <input type="password" minlength="6" class="form-control" name="password" id="epassword"
-                            [(ngModel)]='user.password' required placeholder="Password">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-group">
-                        <button class="bs-margin btn btn-info" type="submit" [disabled]="signUpForm.invalid" class="btn btn-primary">
-                            Submit
-                        </button>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="signUpForm.invalid"
+                                class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 
 
 
-<div class="modal fade bs-manage" tabIndex="-1" role="dialog" aria-labelledby="bsmanage">
-    <form class="form-horizontal" id="manageForm" #manageForm="ngForm" (ngSubmit)="manage(user)">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title" id="manageModal">Manage Your Existing Reservations</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-                        <input type="text" required id="semail" name="semail" [(ngModel)]="user.email" required class="form-control"
-                            placeholder="Email">
+    <div class="modal fade bs-manage" tabIndex="-1" role="dialog" aria-labelledby="bsmanage">
+        <form class="form-horizontal" id="manageForm" #manageForm="ngForm" (ngSubmit)="manage(user)">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="manageModal">Manage Your Existing Reservations</h4>
                     </div>
-                    <div class="form-row">
-                        <input type="text" required id="sphone" name="sphone" [(ngModel)]="user.password" required class="form-control"
-                            placeholder="Password">
+                    <div class="modal-body">
+                        <div class="form-row">
+                            <input type="text" required id="semail" name="semail" [(ngModel)]="user.email" required
+                                class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-row">
+                            <input type="text" required id="sphone" name="sphone" [(ngModel)]="user.password" required
+                                class="form-control" placeholder="Password">
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <div class="btn-group">
-                        <button class="bs-margin btn btn-info" type="submit" [disabled]="manageForm.invalid" class="btn btn-primary">
-                            Submit
-                        </button>
+                    <div class="modal-footer">
+                        <div class="btn-group">
+                            <button class="bs-margin btn btn-info" type="submit" [disabled]="manageForm.invalid"
+                                class="btn btn-primary">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+        </form>
+    </div>
 </div>
